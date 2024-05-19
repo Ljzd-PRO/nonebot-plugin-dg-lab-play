@@ -22,7 +22,9 @@ python = "^3.9"
 nonebot2 = ">=2.2.0"
 pydglab-ws = "^1.0.0"
 nonebot-plugin-send-anything-anywhere = "^0.6.1"
+nonebot-plugin-alconna = "^0.45.4"
 qrcode = {extras = ["pil"], version = "^7.4.2"}
+
 
 [build-system]
 requires = ["poetry-core"]

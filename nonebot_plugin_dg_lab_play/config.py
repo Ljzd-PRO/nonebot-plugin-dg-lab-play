@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, Set
+from typing import Optional
 
 from loguru import logger
 from pydantic import BaseModel, model_validator
@@ -48,8 +48,9 @@ class DGLabClientConfig(BaseModel):
 
 class CommandTextConfig(BaseModel):
     """命令触发文本设置"""
-    dg_lab_device_join: Tuple[str, Set[str]] = ("郊狼连接", {"连接郊狼", "绑定郊狼", "郊狼绑定"})
-    increase_strength: Tuple[str, Set[str]] = ("加大力度", {"加强力度"})
+    dg_lab_device_join: str = "绑定郊狼"
+    increase_strength: str = "加大力度"
+    exit: str = "退出"
 
 
 class ReplyTextConfig(BaseModel):
@@ -60,6 +61,7 @@ class ReplyTextConfig(BaseModel):
     failed_to_create_client: str = "创建 DG-Lab 控制终端失败"
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     invalid_strength_param: str = "强度参数错误，控制失败"
+    failed_to_fetch_strength_limit: str = "获取通道强度上限失败，控制失败"
     successfully_increased: str = "郊狼强度加强成功！"
     invalid_target: str = "目标玩家不存在或郊狼 App 未绑定"
 

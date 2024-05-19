@@ -1,8 +1,10 @@
 import io
 
 import qrcode
+from arclet.alconna import Alconna
 from nonebot.internal.adapter import Event
-from nonebot.plugin import on_command, get_plugin_config
+from nonebot.plugin import get_plugin_config
+from nonebot_plugin_alconna import on_alconna
 from nonebot_plugin_saa import MessageFactory, Image, Text
 
 from ..client_manager import client_manager
@@ -12,9 +14,8 @@ __all__ = ["dg_lab_device_join"]
 
 config = get_plugin_config(Config)
 
-dg_lab_device_join = on_command(
-    config.dg_lab_play.command_text.dg_lab_device_join[0],
-    aliases=config.dg_lab_play.command_text.dg_lab_device_join[1],
+dg_lab_device_join = on_alconna(
+    Alconna(config.dg_lab_play.command_text.dg_lab_device_join),
     block=True
 )
 

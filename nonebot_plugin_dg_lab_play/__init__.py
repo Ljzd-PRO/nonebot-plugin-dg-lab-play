@@ -1,3 +1,4 @@
+from nonebot import require
 from nonebot.plugin import PluginMetadata
 
 from .commands import *
@@ -9,3 +10,6 @@ __plugin_meta__ = PluginMetadata(
     usage="",
     config=Config,
 )
+
+require("nonebot_plugin_saa")
+require("nonebot_plugin_alconna")
