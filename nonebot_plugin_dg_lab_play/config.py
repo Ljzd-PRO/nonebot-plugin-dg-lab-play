@@ -55,15 +55,15 @@ class CommandTextConfig(BaseModel):
 
 class ReplyTextConfig(BaseModel):
     """命令响应文本设置"""
-    please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
-    successfully_bind: str = "绑定成功，可以开始色色了！"
     bind_timeout: str = "绑定超时"
     failed_to_create_client: str = "创建 DG-Lab 控制终端失败"
-    please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
-    invalid_strength_param: str = "强度参数错误，控制失败"
     failed_to_fetch_strength_limit: str = "获取通道强度上限失败，控制失败"
-    successfully_increased: str = "郊狼强度加强成功！"
+    invalid_strength_param: str = "强度参数错误，控制失败"
     invalid_target: str = "目标玩家不存在或郊狼 App 未绑定"
+    please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
+    please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
+    successfully_bind: str = "绑定成功，可以开始色色了！"
+    successfully_increased: str = "郊狼强度加强成功！"
 
 
 class DGLabPlayConfig(BaseModel):
