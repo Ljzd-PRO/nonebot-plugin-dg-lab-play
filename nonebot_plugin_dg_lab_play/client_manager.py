@@ -33,6 +33,7 @@ class DGLabPlayClient:
         self.last_strength: Optional[StrengthData] = None
         self.last_feedback: Optional[FeedbackButton] = None
         self.fetch_task: Optional[asyncio.Task] = None
+        self._pulse_data: List[PulseOperation] = []
         self.pulse_task: Optional[asyncio.Task] = None
         self.is_destroyed: bool = False
 
@@ -54,6 +55,10 @@ class DGLabPlayClient:
             config.dg_lab_play.ws_server.remote_server_uri if config.dg_lab_play.ws_server.remote_server else
             config.dg_lab_play.ws_server.local_server_publish_uri
         )
+
+    @property
+    def pulse_data(self) -> List[PulseOperation]:
+        return self._pulse_data
 
     async def _destroy(self):
         """断开终端的 WS 连接，调用回调函数，并解锁等待锁，以及取消消息获取的任务"""
@@ -93,6 +98,8 @@ class DGLabPlayClient:
         :param pulse_data: 波形数据
         :param channels: 目标通道
         """
+        self._pulse_data.clear()
+        self._pulse_data.extend(pulse_data)
         if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
             self.pulse_task.cancel()
         self.pulse_task = asyncio.create_task(
