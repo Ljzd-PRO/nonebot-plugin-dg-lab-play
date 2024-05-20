@@ -7,7 +7,7 @@ from pydglab_ws import Channel, StrengthOperationType
 from ..client_manager import client_manager
 from ..config import Config
 
-__all__ = ["increase_strength"]
+__all__ = ["increase_strength", "decrease_strength"]
 
 config = get_plugin_config(Config)
 
