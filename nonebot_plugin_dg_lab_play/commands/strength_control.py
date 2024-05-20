@@ -6,6 +6,7 @@ from pydglab_ws import Channel, StrengthOperationType
 
 from ..client_manager import client_manager
 from ..config import Config
+from ..utils import get_command_start_list
 
 __all__ = ["increase_strength", "decrease_strength"]
 
@@ -56,6 +57,7 @@ async def strength_control(
 
 increase_strength = on_alconna(
     Alconna(
+        get_command_start_list(),
         config.command_text.increase_strength,
         Args["at?", At],
         Args["percentage_value?", float]
@@ -71,6 +73,7 @@ async def handle_increase_strength(at: Match[At], percentage_value: Match[float]
 
 decrease_strength = on_alconna(
     Alconna(
+        get_command_start_list(),
         config.command_text.decrease_strength,
         Args["at?", At],
         Args["percentage_value?", float]

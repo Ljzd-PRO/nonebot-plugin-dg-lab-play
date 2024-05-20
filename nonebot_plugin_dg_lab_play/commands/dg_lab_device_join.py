@@ -9,13 +9,14 @@ from nonebot_plugin_saa import MessageFactory, Image, Text
 
 from ..client_manager import client_manager
 from ..config import Config
+from ..utils import get_command_start_list
 
 __all__ = ["dg_lab_device_join"]
 
 config = get_plugin_config(Config).dg_lab_play
 
 dg_lab_device_join = on_alconna(
-    Alconna(config.command_text.dg_lab_device_join),
+    Alconna(get_command_start_list(), config.command_text.dg_lab_device_join),
     block=True
 )
 

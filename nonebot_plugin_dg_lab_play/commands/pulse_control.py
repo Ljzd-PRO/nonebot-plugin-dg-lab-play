@@ -10,6 +10,7 @@ from pydglab_ws import Channel
 from ..client_manager import client_manager
 from ..config import Config
 from ..model import custom_pulse_data
+from ..utils import get_command_start_list
 
 __all__ = ["append_pulse", "reset_pulse"]
 
@@ -55,6 +56,7 @@ async def pulse_control(
 
 append_pulse = on_alconna(
     Alconna(
+        get_command_start_list(),
         config.command_text.append_pulse,
         Args["at?", At],
         Args["pulse_name?", str]
@@ -70,6 +72,7 @@ async def handle_append_pulse(at: Match[At], pulse_name: Match[float]):
 
 reset_pulse = on_alconna(
     Alconna(
+        get_command_start_list(),
         config.command_text.reset_pulse,
         Args["at?", At],
         Args["pulse_name?", str]
