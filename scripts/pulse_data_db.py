@@ -352,6 +352,8 @@ def main():
     with Path("customPulseData.json").open("w", encoding="utf-8") as f:
         json.dump(custom_pulse_data, f, indent=4, ensure_ascii=False, cls=CustomPulseDataJSONEncoder)
 
+    print(custom_pulse_data)
+
 
 if __name__ == "__main__":
     main()
