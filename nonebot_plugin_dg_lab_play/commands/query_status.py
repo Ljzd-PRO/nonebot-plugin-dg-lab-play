@@ -69,7 +69,7 @@ async def handle_current_pulse(at: Match[At]):
         if play_client.pulse_names:
             await MessageFactory(
                 config.reply_text.current_pulse.format(
-                    "——".join(play_client.pulse_names)
+                    "-".join(play_client.pulse_names)
                 )
             ).finish(at_sender=True)
         else:

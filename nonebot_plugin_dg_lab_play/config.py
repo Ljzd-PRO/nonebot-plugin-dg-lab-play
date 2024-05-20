@@ -117,7 +117,7 @@ class ReplyTextConfig(BaseModel):
     successfully_bind: str = "绑定成功，可以开始色色了！"
     successfully_decreased: str = "郊狼强度减小了 {}%"
     successfully_increased: str = "郊狼强度加强了 {}%！"
-    successfully_set_pulse: str = "郊狼波形成功设置为⌈{}⌋！"
+    successfully_set_pulse: str = "郊狼波形成功设置为【{}】！"
     successfully_set_to_strength: str = "郊狼强度成功设置为 {}%！"
 
 
