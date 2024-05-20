@@ -11,7 +11,7 @@ from ..client_manager import client_manager
 from ..config import Config
 from ..utils import get_command_start_list
 
-__all__ = ["dg_lab_device_join", "show_players"]
+__all__ = ["dg_lab_device_join", "show_players", "exit_game"]
 
 config = get_plugin_config(Config).dg_lab_play
 
@@ -66,4 +66,23 @@ async def handle_show_players():
     else:
         await MessageFactory(
             config.reply_text.no_player
+        ).finish(at_sender=True)
+
+
+exit_game = on_alconna(
+    Alconna(get_command_start_list(), config.command_text.exit_game),
+    block=True
+)
+
+
+@exit_game.handle()
+async def handle_exit_game(event: Event):
+    if play_client := client_manager.user_id_to_client.get(event.get_user_id()):
+        await play_client.destroy()
+        await MessageFactory(
+            config.reply_text.game_exited
+        ).finish(at_sender=True)
+    else:
+        await MessageFactory(
+            config.reply_text.not_bind_yet
         ).finish(at_sender=True)

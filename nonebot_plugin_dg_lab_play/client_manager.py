@@ -64,7 +64,7 @@ class DGLabPlayClient:
     def pulse_data(self) -> List[PulseOperation]:
         return self._pulse_name_data[1]
 
-    async def _destroy(self):
+    async def destroy(self):
         """断开终端的 WS 连接，调用回调函数，并解锁等待锁，以及取消消息获取的任务"""
         self.is_destroyed = True
         if self.client and isinstance(self.client, DGLabWSClient):
@@ -75,6 +75,8 @@ class DGLabPlayClient:
                 lock.release()
         if self.fetch_task:
             self.fetch_task.cancel()
+        if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
+            self.pulse_task.cancel()
 
     async def wait_for_bind(self, rebind: bool = False) -> bool:
         """
@@ -89,7 +91,7 @@ class DGLabPlayClient:
             )
             return True
         except asyncio.TimeoutError:
-            await self._destroy()
+            await self.destroy()
             return False
         finally:
             if self.bind_finished_lock.locked():
@@ -143,7 +145,7 @@ class DGLabPlayClient:
                         await self._handle_data(data)
             except asyncio.TimeoutError:
                 logger.error(f"终端从 {config.ws_server.remote_server_uri} 获取 clientId 超时")
-                await self._destroy()
+                await self.destroy()
                 return
         else:
             self.register_finished_lock.release()
