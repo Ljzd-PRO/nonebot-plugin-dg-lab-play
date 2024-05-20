@@ -88,6 +88,7 @@ class CommandTextConfig(BaseModel):
     """命令触发文本设置"""
     dg_lab_device_join: str = "绑定郊狼"
     increase_strength: str = "加大力度"
+    decrease_strength: str = "减小力度"
     exit: str = "退出"
 
 
@@ -102,6 +103,7 @@ class ReplyTextConfig(BaseModel):
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
     successfully_bind: str = "绑定成功，可以开始色色了！"
     successfully_increased: str = "郊狼强度加强成功！"
+    successfully_decreased: str = "郊狼强度减小了"
 
 
 class DGLabPlayConfig(BaseModel):

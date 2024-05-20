@@ -11,18 +11,12 @@ __all__ = ["increase_strength"]
 
 config = get_plugin_config(Config)
 
-increase_strength = on_alconna(
-    Alconna(
-        config.dg_lab_play.command_text.increase_strength,
-        Args["at?", At],
-        Args["percentage_value?", float]
-    ),
-    block=True
-)
 
-
-@increase_strength.handle()
-async def _(at: Match[At], percentage_value: Match[float]):
+async def strength_control(
+        mode: StrengthOperationType,
+        at: Match[At],
+        percentage_value: Match[float]
+):
     if not at.available:
         await MessageFactory(
             config.dg_lab_play.reply_text.please_at_target
@@ -38,16 +32,17 @@ async def _(at: Match[At], percentage_value: Match[float]):
             b_value = round(play_client.last_strength.b_limit * (percentage_value.result / 100))
             await play_client.client.set_strength(
                 Channel.A,
-                StrengthOperationType.INCREASE,
+                mode,
                 a_value
             )
             await play_client.client.set_strength(
                 Channel.B,
-                StrengthOperationType.INCREASE,
+                mode,
                 b_value
             )
             await MessageFactory(
-                config.dg_lab_play.reply_text.successfully_increased
+                config.dg_lab_play.reply_text.successfully_increased if mode == StrengthOperationType.INCREASE
+                else config.dg_lab_play.reply_text.successfully_decreased
             ).finish(at_sender=True)
         else:
             await MessageFactory(
@@ -57,3 +52,33 @@ async def _(at: Match[At], percentage_value: Match[float]):
         await MessageFactory(
             config.dg_lab_play.reply_text.invalid_target
         ).finish(at_sender=True)
+
+
+increase_strength = on_alconna(
+    Alconna(
+        config.dg_lab_play.command_text.increase_strength,
+        Args["at?", At],
+        Args["percentage_value?", float]
+    ),
+    block=True
+)
+
+
+@increase_strength.handle()
+async def _(at: Match[At], percentage_value: Match[float]):
+    await strength_control(StrengthOperationType.INCREASE, at, percentage_value)
+
+
+decrease_strength = on_alconna(
+    Alconna(
+        config.dg_lab_play.command_text.decrease_strength,
+        Args["at?", At],
+        Args["percentage_value?", float]
+    ),
+    block=True
+)
+
+
+@decrease_strength.handle()
+async def __(at: Match[At], percentage_value: Match[float]):
+    await strength_control(StrengthOperationType.DECREASE, at, percentage_value)
