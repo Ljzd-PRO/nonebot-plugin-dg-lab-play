@@ -22,7 +22,7 @@ increase_strength = on_alconna(
 
 
 @increase_strength.handle()
-async def handle_function(at: Match[At], percentage_value: Match[float]):
+async def _(at: Match[At], percentage_value: Match[float]):
     if not at.available:
         await MessageFactory(
             config.dg_lab_play.reply_text.please_at_target
