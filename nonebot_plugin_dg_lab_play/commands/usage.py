@@ -32,7 +32,7 @@ USAGE_TEXT = f"""\
 """
 
 usage = on_alconna(
-    Alconna(config.command_text.usage),
+    Alconna(get_command_start_list(), config.command_text.usage),
     block=True
 )
 
