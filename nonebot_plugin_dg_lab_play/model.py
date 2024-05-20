@@ -184,4 +184,4 @@ def load_custom_pulse_data():
             )
     else:
         with config.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
-            custom_pulse_data.root = CustomPulseData.model_validate(json.load(f))
+            custom_pulse_data.root = CustomPulseData.model_validate(json.load(f)).root
