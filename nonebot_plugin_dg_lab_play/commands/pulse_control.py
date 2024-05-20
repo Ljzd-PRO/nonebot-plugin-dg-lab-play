@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Union
 
 from arclet.alconna import Alconna, Args
 from loguru import logger
@@ -20,7 +20,7 @@ config = get_plugin_config(Config).dg_lab_play
 async def pulse_control(
         mode: Literal["reset", "append"],
         at: Match[At],
-        pulse_name: Match[float]
+        pulse_name: Union[Match[str], str]
 ):
     if not at.available:
         await MessageFactory(
@@ -66,7 +66,7 @@ append_pulse = on_alconna(
 
 
 @append_pulse.handle()
-async def handle_append_pulse(at: Match[At], pulse_name: Match[float]):
+async def handle_append_pulse(at: Match[At], pulse_name: Match[str]):
     await pulse_control("append", at, pulse_name)
 
 
@@ -82,5 +82,5 @@ reset_pulse = on_alconna(
 
 
 @reset_pulse.handle()
-async def handle_reset_pulse(at: Match[At], pulse_name: Match[float]):
+async def handle_reset_pulse(at: Match[At], pulse_name: Match[str]):
     await pulse_control("reset", at, pulse_name)
