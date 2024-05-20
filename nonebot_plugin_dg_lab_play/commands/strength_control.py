@@ -42,8 +42,9 @@ async def strength_control(
                 b_value
             )
             await MessageFactory(
-                config.reply_text.successfully_increased if mode == StrengthOperationType.INCREASE
-                else config.reply_text.successfully_decreased
+                config.reply_text.successfully_increased.format(round(percentage_value.result))
+                if mode == StrengthOperationType.INCREASE
+                else config.reply_text.successfully_decreased.format(round(percentage_value.result))
             ).finish(at_sender=True)
         else:
             await MessageFactory(

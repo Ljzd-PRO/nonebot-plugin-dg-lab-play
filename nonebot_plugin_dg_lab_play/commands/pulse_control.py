@@ -39,7 +39,7 @@ async def pulse_control(
                     logger.error("strength_control - mode 参数不正确")
                     return
                 await MessageFactory(
-                    config.reply_text.successfully_set_pulse
+                    config.reply_text.successfully_set_pulse.format(pulse_name.result)
                 ).finish(at_sender=True)
             else:
                 await MessageFactory(

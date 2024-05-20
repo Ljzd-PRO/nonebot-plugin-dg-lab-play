@@ -110,9 +110,9 @@ class ReplyTextConfig(BaseModel):
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
     successfully_bind: str = "绑定成功，可以开始色色了！"
-    successfully_increased: str = "郊狼强度加强成功！"
-    successfully_decreased: str = "郊狼强度减小了"
-    successfully_set_pulse: str = "郊狼波形设置成功！"
+    successfully_increased: str = "郊狼强度加强了 {}%！"
+    successfully_decreased: str = "郊狼强度减小了 {}%"
+    successfully_set_pulse: str = "郊狼波形成功设置为⌈{}⌋！"
     no_available_pulse: str = "无可用波形"
 
 
