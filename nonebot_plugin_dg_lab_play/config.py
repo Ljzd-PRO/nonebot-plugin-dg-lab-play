@@ -102,7 +102,10 @@ class CommandTextConfig(BaseModel):
 class ReplyTextConfig(BaseModel):
     """命令响应文本设置"""
     bind_timeout: str = "绑定超时"
+    current_pulse: str = "当前波形循环为：【{}】"
+    current_strength: str = "A通道：{0}/{1} B通道：{2}/{3}"
     failed_to_create_client: str = "创建 DG-Lab 控制终端失败"
+    failed_to_fetch_strength_info: str = "获取通道强度状态失败"
     failed_to_fetch_strength_limit: str = "获取通道强度上限失败，控制失败"
     invalid_pulse_param: str = "波形参数错误，控制失败"
     invalid_strength_param: str = "强度参数错误，控制失败"
@@ -110,6 +113,7 @@ class ReplyTextConfig(BaseModel):
     no_available_pulse: str = "无可用波形"
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
+    pulses_empty: str = "当前波形循环为空"
     successfully_bind: str = "绑定成功，可以开始色色了！"
     successfully_decreased: str = "郊狼强度减小了 {}%"
     successfully_increased: str = "郊狼强度加强了 {}%！"
