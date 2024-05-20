@@ -104,16 +104,16 @@ class ReplyTextConfig(BaseModel):
     bind_timeout: str = "绑定超时"
     failed_to_create_client: str = "创建 DG-Lab 控制终端失败"
     failed_to_fetch_strength_limit: str = "获取通道强度上限失败，控制失败"
-    invalid_strength_param: str = "强度参数错误，控制失败"
     invalid_pulse_param: str = "波形参数错误，控制失败"
+    invalid_strength_param: str = "强度参数错误，控制失败"
     invalid_target: str = "目标玩家不存在或郊狼 App 未绑定"
+    no_available_pulse: str = "无可用波形"
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
     successfully_bind: str = "绑定成功，可以开始色色了！"
-    successfully_increased: str = "郊狼强度加强了 {}%！"
     successfully_decreased: str = "郊狼强度减小了 {}%"
+    successfully_increased: str = "郊狼强度加强了 {}%！"
     successfully_set_pulse: str = "郊狼波形成功设置为⌈{}⌋！"
-    no_available_pulse: str = "无可用波形"
 
 
 class DGLabPlayConfig(BaseModel):

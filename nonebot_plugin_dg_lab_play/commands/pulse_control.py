@@ -106,4 +106,4 @@ async def handle_random_pulse(at: Match[At]):
         ).finish(at_sender=True)
     pulse_name_index = random.randint(0, len(available_pulse_names) - 1)
     pulse_name = available_pulse_names[pulse_name_index]
-    await pulse_control("reset", at, Match(pulse_name, available=True))
+    await pulse_control("reset", at, Match(pulse_name, True))
