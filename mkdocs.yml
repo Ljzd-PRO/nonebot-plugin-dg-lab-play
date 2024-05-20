@@ -1,0 +1,127 @@
+#file: noinspection SpellCheckingInspection
+site_name: DG-Lab-Play
+site_url: https://dg-lab-play.readthedocs.io/
+site_description: nonebot2 机器人插件 - 在群里和大家一起玩郊狼吧！
+repo_url: https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play
+repo_name: Ljzd-PRO/nonebot-plugin-dg-lab-play
+copyright: Copyright © 2024 by Ljzd-PRO
+
+watch:
+  - nonebot_plugin_dg_lab_play
+
+nav:
+  - 开始:
+    - 欢迎使用 DG-Lab-Play: index.md
+    - 关于项目: about.md
+#  - 安装: installation.md
+  - 配置:
+    - 向导: config/guide.md
+    - WebSocket 服务端: config/ws-server.md
+    - DG-Lab 终端: config/dg-lab-client.md
+    - 郊狼波形数据: config/pulse-data.md
+    - 命令触发文本: config/command-text.md
+    - 命令响应文本: config/reply-text.md
+  - 常见问题: faq.md
+
+plugins:
+  - tags
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          options:
+            docstring_style: sphinx
+            find_stubs_package: true
+            members_order: source
+            separate_signature: true
+            docstring_options:
+              ignore_init_summary: true
+            merge_init_into_class: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+
+theme:
+  name: material
+  features:
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: 切换至自动
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+
+extra:
+  version:
+    provider: mike
+#  analytics:
+#    provider: google
+#    property: G-E2Y6VTZJZN
+#    feedback:
+#      title: 这个页面对你有帮助吗？
+#      ratings:
+#        - icon: material/emoticon-happy-outline
+#          name: 这个页面有帮助
+#          data: 1
+#          note: >-
+#            感谢你的反馈！
+#        - icon: material/emoticon-sad-outline
+#          name: 这个页面可以改进
+#          data: 0
+#          note: >-
+#            感谢你的反馈，你可以前往我们 GitHub 仓库 Issues 或 Discussion 页面提交更多建议！
+
+markdown_extensions:
+
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.snippets
