@@ -276,9 +276,9 @@ def generate_strength(point_datas: List[PointData]) -> List[Tuple[int, ...]]:
     return strength_data
 
 
-def generate_operations_from_sleep(sleep_time: float):
+def generate_operations_from_sleep(sleep_time: float) -> List[Tuple[Tuple[int, ...], Tuple[int, ...]]]:
     return [
-        (0, 0, 0, 0) for _ in range(
+        ((0, 0, 0, 0), (0, 0, 0, 0)) for _ in range(
             round(sleep_time * 1000 / 100)
         )
     ]
@@ -291,7 +291,7 @@ def generate_operations_from_part(
         pcx: int,
         jx: int,
         point_datas: List[PointData]
-) -> List[Tuple[int, ...]]:
+) -> List[Tuple[Tuple[int, ...], Tuple[int, ...]]]:
     frequencies = generate_frequency(pcx, len(point_datas), ax, bx, cx)
     strength = generate_strength(point_datas)
     operations = list(zip(frequencies, strength))
@@ -299,7 +299,7 @@ def generate_operations_from_part(
     return operations * repeat
 
 
-def generate_result_from_pulse_data(pulse_data: PulseData) -> List[Tuple[int, ...]]:
+def generate_result_from_pulse_data(pulse_data: PulseData) -> List[Tuple[Tuple[int, ...], Tuple[int, ...]]]:
     operations = generate_operations_from_part(
         pulse_data.BG_A0,
         pulse_data.BG_B0,
