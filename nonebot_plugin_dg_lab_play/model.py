@@ -1,8 +1,9 @@
 import json
-from typing import Dict, Tuple, List, Any
+from typing import Dict, List, Any
 
 from nonebot import get_plugin_config, get_driver
-from pydantic import RootModel, field_serializer
+from pydantic import RootModel
+from pydglab_ws import PulseOperation
 
 from .config import Config, DG_LAB_PLAY_DATA_LOCATION
 
@@ -34,14 +35,7 @@ class CustomPulseDataJSONEncoder(json.JSONEncoder):
 class CustomPulseData(RootModel):
     """自定义波形，默认包含 DG-Lab App 内置波形"""
 
-    @field_serializer("root", when_used="json")
-    def _serialize_root(self, value: Any):
-        if isinstance(value, dict):
-            return json.dumps(value, indent=4, ensure_ascii=False, cls=CustomPulseDataJSONEncoder)
-        else:
-            return value
-
-    root: Dict[str, List[Tuple[int, int, int, int]]] = {
+    root: Dict[str, List[PulseOperation]] = {
         '呼吸': [
             ((10, 10, 10, 10), (0, 0, 0, 0)), ((10, 10, 10, 10), (0, 5, 10, 20)),
             ((10, 10, 10, 10), (20, 25, 30, 40)), ((10, 10, 10, 10), (40, 45, 50, 60)),
@@ -173,13 +167,21 @@ custom_pulse_data = CustomPulseData()
 def load_custom_pulse_data():
     if not config.pulse_data.custom_pulse_data.is_file():
         with config.pulse_data.custom_pulse_data.open("w", encoding="utf-8") as f:
-            f.write(
-                custom_pulse_data.model_dump_json()
+            json.dump(
+                custom_pulse_data.root,
+                f,
+                indent=4,
+                ensure_ascii=False,
+                cls=CustomPulseDataJSONEncoder
             )
         with (DG_LAB_PLAY_DATA_LOCATION / CUSTOM_PULSE_DATA_SCHEMA_FILENAME).open("w", encoding="utf-8") as f:
-            f.write(
-                custom_pulse_data.model_json_schema()
+            json.dump(
+                custom_pulse_data.model_json_schema(),
+                f,
+                indent=4,
+                ensure_ascii=False,
+                cls=CustomPulseDataJSONEncoder
             )
-
-    with config.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
-        custom_pulse_data.root = CustomPulseData.model_validate_json(f.read()).root
+    else:
+        with config.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
+            custom_pulse_data.root = CustomPulseData.model_validate(json.load(f))

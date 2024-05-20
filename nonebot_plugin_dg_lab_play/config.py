@@ -134,4 +134,4 @@ class Config(BaseModel):
 
 @driver.on_startup
 async def create_data_directory():
-    DG_LAB_PLAY_DATA_LOCATION.mkdir(parents=True)
+    DG_LAB_PLAY_DATA_LOCATION.mkdir(parents=True, exist_ok=True)
