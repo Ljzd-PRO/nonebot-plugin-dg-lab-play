@@ -1,6 +1,6 @@
 import asyncio
 from functools import cached_property
-from typing import Dict, Optional, Union, Self, Callable, Any, List
+from typing import Dict, Optional, Union, Self, Callable, Any, List, Tuple
 
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
@@ -33,7 +33,7 @@ class DGLabPlayClient:
         self.last_strength: Optional[StrengthData] = None
         self.last_feedback: Optional[FeedbackButton] = None
         self.fetch_task: Optional[asyncio.Task] = None
-        self._pulse_data: List[PulseOperation] = []
+        self._pulse_name_data: Tuple[List[str], List[PulseOperation]] = ([], [])
         self.pulse_task: Optional[asyncio.Task] = None
         self.is_destroyed: bool = False
 
@@ -57,8 +57,12 @@ class DGLabPlayClient:
         )
 
     @property
+    def pulse_names(self) -> List[str]:
+        return self._pulse_name_data[0]
+
+    @property
     def pulse_data(self) -> List[PulseOperation]:
-        return self._pulse_data
+        return self._pulse_name_data[1]
 
     async def _destroy(self):
         """断开终端的 WS 连接，调用回调函数，并解锁等待锁，以及取消消息获取的任务"""
@@ -91,15 +95,17 @@ class DGLabPlayClient:
             if self.bind_finished_lock.locked():
                 self.bind_finished_lock.release()
 
-    def setup_pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
+    def setup_pulse_job(self, pulse_names: List[str], pulse_data: List[PulseOperation], *channels: Channel):
         """
         设置波形发送任务
 
+        :param pulse_names: 波形名称
         :param pulse_data: 波形数据
         :param channels: 目标通道
         """
-        self._pulse_data.clear()
-        self._pulse_data.extend(pulse_data)
+        names, data = self._pulse_name_data
+        for current, new in zip((names, data), (pulse_names, pulse_data)):
+            current.extend(new)
         if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
             self.pulse_task.cancel()
         self.pulse_task = asyncio.create_task(

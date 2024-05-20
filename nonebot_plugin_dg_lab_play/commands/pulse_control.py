@@ -32,9 +32,14 @@ async def pulse_control(
             target_user_id = at.result.target
             if play_client := client_manager.user_id_to_client.get(target_user_id):
                 if mode == "reset":
-                    play_client.setup_pulse_job(pulse_data, Channel.A, Channel.B)
+                    play_client.setup_pulse_job([pulse_name.result], pulse_data, Channel.A, Channel.B)
                 elif mode == "append":
-                    play_client.setup_pulse_job(play_client.pulse_data + pulse_data, Channel.A, Channel.B)
+                    play_client.setup_pulse_job(
+                        play_client.pulse_names + [pulse_name.result],
+                        play_client.pulse_data + pulse_data,
+                        Channel.A,
+                        Channel.B
+                    )
                 else:
                     logger.error("strength_control - mode 参数不正确")
                     return

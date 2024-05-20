@@ -66,10 +66,10 @@ async def handle_current_pulse(at: Match[At]):
         ).finish(at_sender=True)
     target_user_id = at.result.target
     if play_client := client_manager.user_id_to_client.get(target_user_id):
-        if play_client.pulse_data:
+        if play_client.pulse_names:
             await MessageFactory(
                 config.reply_text.current_pulse.format(
-                    "——".join(play_client.pulse_data)
+                    "——".join(play_client.pulse_names)
                 )
             ).finish(at_sender=True)
         else:
