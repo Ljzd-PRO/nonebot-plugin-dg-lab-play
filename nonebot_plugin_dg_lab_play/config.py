@@ -86,12 +86,17 @@ class PulseDataConfig(BaseModel):
 
 class CommandTextConfig(BaseModel):
     """命令触发文本设置"""
+    append_pulse: str = "增加波形"
+    current_pulse: str = "当前波形"
+    current_strength: str = "当前力度"
+    decrease_strength: str = "减小力度"
     dg_lab_device_join: str = "绑定郊狼"
     increase_strength: str = "加大力度"
-    decrease_strength: str = "减小力度"
-    append_pulse: str = "增加波形"
+    random_pulse: str = "随机波形"
+    random_strength: str = "随机力度"
     reset_pulse: str = "重置波形"
-    exit: str = "退出"
+    show_pulses: str = "可用波形"
+    usage: str = "郊狼玩法"
 
 
 class ReplyTextConfig(BaseModel):
