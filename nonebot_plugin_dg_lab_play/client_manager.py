@@ -1,14 +1,18 @@
 import asyncio
 from functools import cached_property
-from typing import Dict, Optional, Union, Self, Callable, Any
+from typing import Dict, Optional, Union, Self, Callable, Any, List
 
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
-from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, DGLabWSClient
+from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, DGLabWSClient, \
+    PulseOperation, Channel
 
 from .config import Config
 
 __all__ = ["DGLabPlayClient", "client_manager"]
+
+APP_PULSE_QUEUE_LEN = 50
+"""DG-Lab App 波形队列最大持续时长"""
 
 config = get_plugin_config(Config)
 driver = get_driver()
@@ -29,6 +33,7 @@ class DGLabPlayClient:
         self.last_strength: Optional[StrengthData] = None
         self.last_feedback: Optional[FeedbackButton] = None
         self.fetch_task: Optional[asyncio.Task] = None
+        self.pulse_task: Optional[asyncio.Task] = None
         self.is_destroyed: bool = False
 
         self.register_finished_lock = asyncio.Lock()
@@ -81,6 +86,19 @@ class DGLabPlayClient:
             if self.bind_finished_lock.locked():
                 self.bind_finished_lock.release()
 
+    def setup_pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
+        """
+        设置波形发送任务
+
+        :param pulse_data: 波形数据
+        :param channels: 目标通道
+        """
+        if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
+            self.pulse_task.cancel()
+        self.pulse_task = asyncio.create_task(
+            self._pulse_job(pulse_data, *channels)
+        )
+
     async def _handle_data(self, data: Union[StrengthData, FeedbackButton, RetCode]):
         """处理消息"""
         if isinstance(data, StrengthData):
@@ -121,6 +139,31 @@ class DGLabPlayClient:
             logger.success(f"终端 {self.client.client_id} 成功与 App {self.client.target_id} 绑定")
             async for data in self.client.data_generator():
                 await self._handle_data(data)
+
+    async def _pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
+        if config.dg_lab_play.pulse_data.duration_per_post > APP_PULSE_QUEUE_LEN / 2:
+            logger.warning("PulseDataConfig.duration_per_post 大于 DG-Lab App 队列最大时长的一半，可能导致波形出现中断")
+        for channel in channels:
+            await self.client.clear_pulses(channel)
+        await asyncio.sleep(config.dg_lab_play.pulse_data.sleep_after_clear)
+
+        pulse_data_duration = len(pulse_data) * 0.1
+        replay_times = int(config.dg_lab_play.pulse_data.duration_per_post // pulse_data_duration)
+        actual_duration = replay_times * pulse_data_duration
+        max_pulse_num = int(APP_PULSE_QUEUE_LEN // actual_duration)
+        pulse_data_for_post = pulse_data * replay_times
+
+        for _ in range(max_pulse_num):
+            for channel in channels:
+                await self.client.add_pulses(channel, *pulse_data_for_post)
+            await asyncio.sleep(config.dg_lab_play.pulse_data.post_interval)
+
+        # 减去上面多余的睡眠时间
+        await asyncio.sleep(abs(pulse_data_duration - config.dg_lab_play.pulse_data.post_interval))
+        while True:
+            for channel in channels:
+                await self.client.add_pulses(channel, *pulse_data_for_post)
+            await asyncio.sleep(pulse_data_duration)
 
 
 class ClientManager:

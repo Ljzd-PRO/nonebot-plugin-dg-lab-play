@@ -1,16 +1,24 @@
+from pathlib import Path
 from typing import Optional
 
 from loguru import logger
+from nonebot import get_driver
 from pydantic import BaseModel, model_validator
 
 __all__ = [
+    "DG_LAB_PLAY_DATA_LOCATION",
     "WSServerConfig",
     "DGLabClientConfig",
+    "PulseDataConfig",
     "CommandTextConfig",
     "ReplyTextConfig",
     "DGLabPlayConfig",
     "Config"
 ]
+
+DG_LAB_PLAY_DATA_LOCATION = Path("data/dg-lab-play")
+
+driver = get_driver()
 
 
 class WSServerConfig(BaseModel):
@@ -55,6 +63,27 @@ class DGLabClientConfig(BaseModel):
     register_timeout: float = 30
 
 
+class PulseDataConfig(BaseModel):
+    """
+    郊狼波形数据设置
+
+    DG-Lab App 波形队列最大长度为 50s，波形发送任务会先清空 App 波形队列，然后数次发送 最大为 ``duration_per_post`` 时长的波形，
+    直到 App 队列无法继续放入。随后将会等待直到队列空出一段 最大为 ``duration_per_post`` 时长的空间，
+    此时再发送一段 最大为 ``duration_per_post`` 时长的波形，然后再等待空间空出，再发送，如此循环。
+
+    :ivar custom_pulse_data: 自定义波形的文件路径，\
+        JSON 格式为 波形名称 -> 波形数据（``Array<Array<Number, Number, Number, Number>>``)
+    :ivar duration_per_post: 每次发送的波形最大持续时长，建议小于 25s。即实际时长将会是 **设定的波形的时长** 的整数倍，倍数向下取整。\
+        在此持续时间内，设定的波形会被重复播放
+    :ivar post_interval: 波形发送间隔时间，应尽量小
+    :ivar sleep_after_clear: 清除波形后的睡眠时间（避免由于网络波动等原因导致 清空队列指令晚于波形数据执行造成波形数据丢失 的情况）
+    """
+    custom_pulse_data: Path = DG_LAB_PLAY_DATA_LOCATION / "customPulseData.json"
+    duration_per_post: float = 10
+    post_interval: float = 1
+    sleep_after_clear: float = 0.5
+
+
 class CommandTextConfig(BaseModel):
     """命令触发文本设置"""
     dg_lab_device_join: str = "绑定郊狼"
@@ -78,9 +107,15 @@ class ReplyTextConfig(BaseModel):
 class DGLabPlayConfig(BaseModel):
     ws_server: WSServerConfig = WSServerConfig()
     dg_lab_client: DGLabClientConfig = DGLabClientConfig()
+    pulse_data: PulseDataConfig = PulseDataConfig()
     command_text: CommandTextConfig = CommandTextConfig()
     reply_text: ReplyTextConfig = ReplyTextConfig()
 
 
 class Config(BaseModel):
     dg_lab_play: DGLabPlayConfig = DGLabPlayConfig()
+
+
+@driver.on_startup
+async def create_data_directory():
+    DG_LAB_PLAY_DATA_LOCATION.mkdir(parents=True)
