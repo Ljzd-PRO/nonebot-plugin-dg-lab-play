@@ -67,19 +67,21 @@ class PulseDataConfig(BaseModel):
     """
     郊狼波形数据设置
 
+    此处时间单位均为 秒。
+
     DG-Lab App 波形队列最大长度为 50s，波形发送任务会先清空 App 波形队列，然后数次发送 最大为 ``duration_per_post`` 时长的波形，
     直到 App 队列无法继续放入。随后将会等待直到队列空出一段 最大为 ``duration_per_post`` 时长的空间，
     此时再发送一段 最大为 ``duration_per_post`` 时长的波形，然后再等待空间空出，再发送，如此循环。
 
     :ivar custom_pulse_data: 自定义波形的文件路径，\
         JSON 格式为 波形名称 -> 波形数据（``Array<Array<Number, Number, Number, Number>>``)
-    :ivar duration_per_post: 每次发送的波形最大持续时长，建议小于 25s。即实际时长将会是 **设定的波形的时长** 的整数倍，倍数向下取整。\
+    :ivar duration_per_post: 每次发送的波形最大持续时长，**必须小于等于 8.2**。实际时长将会是 **设定的波形的时长** 的整数倍，倍数向下取整。\
         在此持续时间内，设定的波形会被重复播放
     :ivar post_interval: 波形发送间隔时间，应尽量小
     :ivar sleep_after_clear: 清除波形后的睡眠时间（避免由于网络波动等原因导致 清空队列指令晚于波形数据执行造成波形数据丢失 的情况）
     """
     custom_pulse_data: Path = DG_LAB_PLAY_DATA_LOCATION / "customPulseData.json"
-    duration_per_post: float = 10
+    duration_per_post: float = 8.2
     post_interval: float = 1
     sleep_after_clear: float = 0.5
 
