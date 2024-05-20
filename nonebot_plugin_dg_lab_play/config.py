@@ -97,6 +97,7 @@ class CommandTextConfig(BaseModel):
     random_pulse: str = "随机波形"
     random_strength: str = "随机强度"
     reset_pulse: str = "重置波形"
+    show_players: str = "当前玩家"
     show_pulses: str = "可用波形"
     usage: str = "郊狼玩法"
 
@@ -104,6 +105,7 @@ class CommandTextConfig(BaseModel):
 class ReplyTextConfig(BaseModel):
     """命令响应文本设置"""
     bind_timeout: str = "绑定超时"
+    current_players: str = "当前玩家："
     current_pulse: str = "当前波形循环为：【{}】"
     current_strength: str = "A通道：{0}/{1} B通道：{2}/{3}"
     failed_to_create_client: str = "创建 DG-Lab 控制终端失败"
@@ -113,6 +115,7 @@ class ReplyTextConfig(BaseModel):
     invalid_strength_param: str = "强度参数错误，控制失败"
     invalid_target: str = "目标玩家不存在或郊狼 App 未绑定"
     no_available_pulse: str = "无可用波形"
+    no_player: str = "当前没有已连接的玩家，你可以绑定试试~"
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
     pulses_empty: str = "当前波形循环为空"

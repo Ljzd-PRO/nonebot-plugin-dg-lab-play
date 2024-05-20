@@ -16,6 +16,7 @@ USAGE_TEXT = f"""\
 ⚡ DG-Lab-Play 郊狼玩法说明 ⚡
 
 📲连接 DG-Lab App：{fist_command_start}{config.command_text.dg_lab_device_join}
+🕹️查看当前玩家：{fist_command_start}{config.command_text.show_players}
 
 🔺增加玩家通道强度：{fist_command_start}{config.command_text.increase_strength} <At用户> <百分比>
 🔻减小玩家通道强度：{fist_command_start}{config.command_text.decrease_strength} <At用户> <百分比>

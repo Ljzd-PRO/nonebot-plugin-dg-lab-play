@@ -5,13 +5,13 @@ from arclet.alconna import Alconna
 from nonebot.internal.adapter import Event
 from nonebot.plugin import get_plugin_config
 from nonebot_plugin_alconna import on_alconna
-from nonebot_plugin_saa import MessageFactory, Image, Text
+from nonebot_plugin_saa import MessageFactory, Image, Text, Mention
 
 from ..client_manager import client_manager
 from ..config import Config
 from ..utils import get_command_start_list
 
-__all__ = ["dg_lab_device_join"]
+__all__ = ["dg_lab_device_join", "show_players"]
 
 config = get_plugin_config(Config).dg_lab_play
 
@@ -47,4 +47,23 @@ async def handle_dg_lab_device_join(event: Event):
     else:
         await MessageFactory(
             config.reply_text.bind_timeout
+        ).finish(at_sender=True)
+
+
+show_players = on_alconna(
+    Alconna(get_command_start_list(), config.command_text.show_players),
+    block=True
+)
+
+
+@show_players.handle()
+async def handle_show_players():
+    if client_manager.user_id_to_client:
+        await MessageFactory(
+            [config.reply_text.current_players]
+            + [Mention(user_id) for user_id in client_manager.user_id_to_client.keys()]
+        ).finish(at_sender=True)
+    else:
+        await MessageFactory(
+            config.reply_text.no_player
         ).finish(at_sender=True)

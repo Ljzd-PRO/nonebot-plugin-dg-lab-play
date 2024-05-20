@@ -1,4 +1,4 @@
-from .dg_lab_device_join import *
+from .devices import *
 from .pulse_control import *
 from .query_status import *
 from .show_pulses import *
