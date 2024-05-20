@@ -104,7 +104,8 @@ class DGLabPlayClient:
         :param channels: 目标通道
         """
         names, data = self._pulse_name_data
-        for current, new in zip((names, data), (pulse_names, pulse_data)):
+        for current, new in zip((names, data), (pulse_names, pulse_data)):  # type: list, list
+            current.clear()
             current.extend(new)
         if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
             self.pulse_task.cancel()
