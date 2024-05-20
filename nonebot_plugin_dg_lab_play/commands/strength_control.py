@@ -1,3 +1,5 @@
+import random
+
 from arclet.alconna import Alconna, Args
 from nonebot.plugin import get_plugin_config
 from nonebot_plugin_alconna import on_alconna, At, Match
@@ -86,3 +88,23 @@ decrease_strength = on_alconna(
 @decrease_strength.handle()
 async def handle_decrease_strength(at: Match[At], percentage_value: Match[float]):
     await strength_control(StrengthOperationType.DECREASE, at, percentage_value)
+
+
+random_strength = on_alconna(
+    Alconna(
+        get_command_start_list(),
+        config.command_text.random_strength,
+        Args["at?", At]
+    ),
+    block=True
+)
+
+
+@random_strength.handle()
+async def handle_random_strength(at: Match[At]):
+    random_strength_value = float(random.randint(0, 100))
+    await strength_control(
+        StrengthOperationType.SET_TO,
+        at,
+        Match(random_strength_value, True)
+    )
