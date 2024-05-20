@@ -21,7 +21,7 @@ dg_lab_device_join = on_alconna(
 
 
 @dg_lab_device_join.handle()
-async def _(event: Event):
+async def handle_dg_lab_device_join(event: Event):
     play_client = client_manager.user_id_to_client.get(event.get_user_id()) or await client_manager.new_client(
         event.get_user_id()
     )

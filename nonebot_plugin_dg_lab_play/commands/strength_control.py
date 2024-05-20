@@ -65,7 +65,7 @@ increase_strength = on_alconna(
 
 
 @increase_strength.handle()
-async def _(at: Match[At], percentage_value: Match[float]):
+async def handle_increase_strength(at: Match[At], percentage_value: Match[float]):
     await strength_control(StrengthOperationType.INCREASE, at, percentage_value)
 
 
@@ -80,5 +80,5 @@ decrease_strength = on_alconna(
 
 
 @decrease_strength.handle()
-async def __(at: Match[At], percentage_value: Match[float]):
+async def handle_decrease_strength(at: Match[At], percentage_value: Match[float]):
     await strength_control(StrengthOperationType.DECREASE, at, percentage_value)
