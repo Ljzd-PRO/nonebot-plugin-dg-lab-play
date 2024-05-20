@@ -1,12 +1,46 @@
-from typing import Dict, Tuple, List
+import json
+from typing import Dict, Tuple, List, Any
 
-from pydantic import RootModel
+from nonebot import get_plugin_config, get_driver
+from pydantic import RootModel, field_serializer
 
-__all__ = ["CustomPulseData"]
+from .config import Config, DG_LAB_PLAY_DATA_LOCATION
+
+__all__ = ["CustomPulseData", "custom_pulse_data"]
+
+CUSTOM_PULSE_DATA_SCHEMA_FILENAME = "custom-pulse-data-schema.json"
+
+config = get_plugin_config(Config)
+driver = get_driver()
+
+
+class CustomPulseDataJSONEncoder(json.JSONEncoder):
+    def iterencode(self, obj, *args, **kwargs):
+        if isinstance(obj, dict):
+            items = []
+            for key, value in obj.items():
+                items.append(f"\n{' ' * self.indent}{self.encode(key)}: {self.encode(value)}")
+            return '{' + ','.join(items) + '\n}'
+        else:
+            return super().iterencode(obj, *args, **kwargs)
+
+    def encode(self, o: Any):
+        if isinstance(o, list) or isinstance(o, tuple):
+            return '[' + ', '.join(self.encode(element) for element in o) + ']'
+        else:
+            return super().encode(o)
 
 
 class CustomPulseData(RootModel):
     """自定义波形，默认包含 DG-Lab App 内置波形"""
+
+    @field_serializer("root", when_used="json")
+    def _serialize_root(self, value: Any):
+        if isinstance(value, dict):
+            return json.dumps(value, indent=4, ensure_ascii=False, cls=CustomPulseDataJSONEncoder)
+        else:
+            return value
+
     root: Dict[str, List[Tuple[int, int, int, int]]] = {
         '呼吸': [
             ((10, 10, 10, 10), (0, 0, 0, 0)), ((10, 10, 10, 10), (0, 5, 10, 20)),
@@ -130,3 +164,22 @@ class CustomPulseData(RootModel):
             ((0, 0, 0, 0), (0, 0, 0, 0))
         ]
     }
+
+
+custom_pulse_data = CustomPulseData()
+
+
+@driver.on_startup
+def load_custom_pulse_data():
+    if not config.dg_lab_play.pulse_data.custom_pulse_data.is_file():
+        with config.dg_lab_play.pulse_data.custom_pulse_data.open("w", encoding="utf-8") as f:
+            f.write(
+                custom_pulse_data.model_dump_json()
+            )
+        with (DG_LAB_PLAY_DATA_LOCATION / CUSTOM_PULSE_DATA_SCHEMA_FILENAME).open("w", encoding="utf-8") as f:
+            f.write(
+                custom_pulse_data.model_json_schema()
+            )
+
+    with config.dg_lab_play.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
+        custom_pulse_data.root = CustomPulseData.model_validate_json(f.read()).root
