@@ -113,6 +113,7 @@ class ReplyTextConfig(BaseModel):
     successfully_increased: str = "郊狼强度加强成功！"
     successfully_decreased: str = "郊狼强度减小了"
     successfully_set_pulse: str = "郊狼波形设置成功！"
+    no_available_pulse: str = "无可用波形"
 
 
 class DGLabPlayConfig(BaseModel):
