@@ -1,6 +1,7 @@
 import random
 
 from arclet.alconna import Alconna, Args
+from loguru import logger
 from nonebot.plugin import get_plugin_config
 from nonebot_plugin_alconna import on_alconna, At, Match
 from nonebot_plugin_saa import MessageFactory
@@ -43,11 +44,16 @@ async def strength_control(
                 mode,
                 b_value
             )
-            await MessageFactory(
-                config.reply_text.successfully_increased.format(round(percentage_value.result))
-                if mode == StrengthOperationType.INCREASE
-                else config.reply_text.successfully_decreased.format(round(percentage_value.result))
-            ).finish(at_sender=True)
+            if mode == StrengthOperationType.INCREASE:
+                success_text = config.reply_text.successfully_increased.format(round(percentage_value.result))
+            elif mode == StrengthOperationType.DECREASE:
+                success_text = config.reply_text.successfully_decreased.format(round(percentage_value.result))
+            elif mode == StrengthOperationType.SET_TO:
+                success_text = config.reply_text.successfully_set_to_strength.format(round(percentage_value.result))
+            else:
+                logger.error("strength_control - mode 参数不正确")
+                return
+            await MessageFactory(success_text).finish(at_sender=True)
         else:
             await MessageFactory(
                 config.reply_text.failed_to_fetch_strength_limit
