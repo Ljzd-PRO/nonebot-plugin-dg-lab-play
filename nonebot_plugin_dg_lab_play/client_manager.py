@@ -4,8 +4,8 @@ from typing import Dict, Optional, Union, Self, Callable, Any, List
 
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
-from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, DGLabWSClient, \
-    PulseOperation, Channel
+from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, \
+    DGLabWSClient, PulseOperation, Channel
 
 from .config import Config
 
