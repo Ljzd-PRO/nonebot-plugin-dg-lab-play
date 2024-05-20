@@ -12,4 +12,5 @@ __plugin_meta__ = PluginMetadata(
 )
 
 require("nonebot_plugin_saa")
+# noinspection SpellCheckingInspection
 require("nonebot_plugin_alconna")
