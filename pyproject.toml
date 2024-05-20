@@ -4,9 +4,9 @@ version = "1.0.0"
 description = "nonebot2 机器人插件 - 在群里和大家一起玩郊狼吧！"
 authors = ["Ljzd-PRO <ljzd@office.ljzd-pro.asia>"]
 readme = "README.md"
-homepage = "https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play"
+homepage = "https://dg-lab-play.readthedocs.io"
 repository = "https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play"
-documentation = "https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play"
+documentation = "https://dg-lab-play.readthedocs.io"
 
 keywords = ["nonebot", "nonebot2", "dg-lab", "dg-lab-v3"]
 classifiers = [
@@ -25,6 +25,14 @@ nonebot-plugin-send-anything-anywhere = "^0.6.1"
 nonebot-plugin-alconna = "^0.45.4"
 qrcode = {extras = ["pil"], version = "^7.4.2"}
 
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.6.0"
+mkdocs-material = "^9.5.22"
+mkdocstrings = {version="^0.25.1", extras=["python"]}
+mike = "^2.1.1"
+
+[tool.poetry.group.docs]
+optional = true
 
 [build-system]
 requires = ["poetry-core"]
