@@ -13,7 +13,7 @@ from ..model import custom_pulse_data
 
 __all__ = ["append_pulse", "reset_pulse"]
 
-config = get_plugin_config(Config)
+config = get_plugin_config(Config).dg_lab_play
 
 
 async def pulse_control(
@@ -23,7 +23,7 @@ async def pulse_control(
 ):
     if not at.available:
         await MessageFactory(
-            config.dg_lab_play.reply_text.please_at_target
+            config.reply_text.please_at_target
         ).finish(at_sender=True)
     elif pulse_name.available:
         if pulse_data := custom_pulse_data.root.get(pulse_name.result):
@@ -37,25 +37,25 @@ async def pulse_control(
                     logger.error("strength_control - mode 参数不正确")
                     return
                 await MessageFactory(
-                    config.dg_lab_play.reply_text.successfully_set_pulse
+                    config.reply_text.successfully_set_pulse
                 ).finish(at_sender=True)
             else:
                 await MessageFactory(
-                    config.dg_lab_play.reply_text.invalid_target
+                    config.reply_text.invalid_target
                 ).finish(at_sender=True)
         else:
             await MessageFactory(
-                config.dg_lab_play.reply_text.invalid_pulse_param
+                config.reply_text.invalid_pulse_param
             ).finish(at_sender=True)
     else:
         await MessageFactory(
-            config.dg_lab_play.reply_text.invalid_pulse_param
+            config.reply_text.invalid_pulse_param
         ).finish(at_sender=True)
 
 
 append_pulse = on_alconna(
     Alconna(
-        config.dg_lab_play.command_text.append_pulse,
+        config.command_text.append_pulse,
         Args["at?", At],
         Args["pulse_name?", str]
     ),
@@ -70,7 +70,7 @@ async def handle_append_pulse(at: Match[At], pulse_name: Match[float]):
 
 reset_pulse = on_alconna(
     Alconna(
-        config.dg_lab_play.command_text.reset_pulse,
+        config.command_text.reset_pulse,
         Args["at?", At],
         Args["pulse_name?", str]
     ),

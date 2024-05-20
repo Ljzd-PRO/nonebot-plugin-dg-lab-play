@@ -10,7 +10,7 @@ __all__ = ["CustomPulseData", "custom_pulse_data"]
 
 CUSTOM_PULSE_DATA_SCHEMA_FILENAME = "custom-pulse-data-schema.json"
 
-config = get_plugin_config(Config)
+config = get_plugin_config(Config).dg_lab_play
 driver = get_driver()
 
 
@@ -171,8 +171,8 @@ custom_pulse_data = CustomPulseData()
 
 @driver.on_startup
 def load_custom_pulse_data():
-    if not config.dg_lab_play.pulse_data.custom_pulse_data.is_file():
-        with config.dg_lab_play.pulse_data.custom_pulse_data.open("w", encoding="utf-8") as f:
+    if not config.pulse_data.custom_pulse_data.is_file():
+        with config.pulse_data.custom_pulse_data.open("w", encoding="utf-8") as f:
             f.write(
                 custom_pulse_data.model_dump_json()
             )
@@ -181,5 +181,5 @@ def load_custom_pulse_data():
                 custom_pulse_data.model_json_schema()
             )
 
-    with config.dg_lab_play.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
+    with config.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
         custom_pulse_data.root = CustomPulseData.model_validate_json(f.read()).root

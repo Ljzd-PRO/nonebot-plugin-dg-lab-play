@@ -14,7 +14,7 @@ __all__ = ["DGLabPlayClient", "client_manager"]
 APP_PULSE_QUEUE_LEN = 50
 """DG-Lab App 波形队列最大持续时长"""
 
-config = get_plugin_config(Config)
+config = get_plugin_config(Config).dg_lab_play
 driver = get_driver()
 
 
@@ -52,8 +52,8 @@ class DGLabPlayClient:
     @cached_property
     def qrcode(self) -> Optional[str]:
         return self.client.get_qrcode(
-            config.dg_lab_play.ws_server.remote_server_uri if config.dg_lab_play.ws_server.remote_server else
-            config.dg_lab_play.ws_server.local_server_publish_uri
+            config.ws_server.remote_server_uri if config.ws_server.remote_server else
+            config.ws_server.local_server_publish_uri
         )
 
     @property
@@ -81,7 +81,7 @@ class DGLabPlayClient:
         try:
             await asyncio.wait_for(
                 self.client.bind() if not rebind else self.client.rebind(),
-                timeout=config.dg_lab_play.dg_lab_client.bind_timeout
+                timeout=config.dg_lab_client.bind_timeout
             )
             return True
         except asyncio.TimeoutError:
@@ -119,11 +119,11 @@ class DGLabPlayClient:
 
     async def _serve(self):
         """建立终端连接，并不断获取和处理消息"""
-        if config.dg_lab_play.ws_server.remote_server:
+        if config.ws_server.remote_server:
             try:
                 async with DGLabWSConnect(
-                        config.dg_lab_play.ws_server.remote_server_uri,
-                        config.dg_lab_play.dg_lab_client.register_timeout
+                        config.ws_server.remote_server_uri,
+                        config.dg_lab_client.register_timeout
                 ) as client:
                     self.client = client
                     self.register_finished_lock.release()
@@ -135,7 +135,7 @@ class DGLabPlayClient:
                     async for data in client.data_generator():
                         await self._handle_data(data)
             except asyncio.TimeoutError:
-                logger.error(f"终端从 {config.dg_lab_play.ws_server.remote_server_uri} 获取 clientId 超时")
+                logger.error(f"终端从 {config.ws_server.remote_server_uri} 获取 clientId 超时")
                 await self._destroy()
                 return
         else:
@@ -148,14 +148,14 @@ class DGLabPlayClient:
                 await self._handle_data(data)
 
     async def _pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
-        if config.dg_lab_play.pulse_data.duration_per_post > APP_PULSE_QUEUE_LEN / 2:
+        if config.pulse_data.duration_per_post > APP_PULSE_QUEUE_LEN / 2:
             logger.warning("PulseDataConfig.duration_per_post 大于 DG-Lab App 队列最大时长的一半，可能导致波形出现中断")
         for channel in channels:
             await self.client.clear_pulses(channel)
-        await asyncio.sleep(config.dg_lab_play.pulse_data.sleep_after_clear)
+        await asyncio.sleep(config.pulse_data.sleep_after_clear)
 
         pulse_data_duration = len(pulse_data) * 0.1
-        replay_times = int(config.dg_lab_play.pulse_data.duration_per_post // pulse_data_duration)
+        replay_times = int(config.pulse_data.duration_per_post // pulse_data_duration)
         actual_duration = replay_times * pulse_data_duration
         max_pulse_num = int(APP_PULSE_QUEUE_LEN // actual_duration)
         pulse_data_for_post = pulse_data * replay_times
@@ -163,10 +163,10 @@ class DGLabPlayClient:
         for _ in range(max_pulse_num):
             for channel in channels:
                 await self.client.add_pulses(channel, *pulse_data_for_post)
-            await asyncio.sleep(config.dg_lab_play.pulse_data.post_interval)
+            await asyncio.sleep(config.pulse_data.post_interval)
 
         # 减去上面多余的睡眠时间
-        await asyncio.sleep(abs(pulse_data_duration - config.dg_lab_play.pulse_data.post_interval))
+        await asyncio.sleep(abs(pulse_data_duration - config.pulse_data.post_interval))
         while True:
             for channel in channels:
                 await self.client.add_pulses(channel, *pulse_data_for_post)
@@ -180,16 +180,16 @@ class ClientManager:
         self.ws_server_task: Optional[asyncio.Task] = None
 
     async def _setup_server(self):
-        if not config.dg_lab_play.ws_server.remote_server:
+        if not config.ws_server.remote_server:
             async with DGLabWSServer(
-                    config.dg_lab_play.ws_server.local_server_host,
-                    config.dg_lab_play.ws_server.local_server_port,
-                    config.dg_lab_play.ws_server.local_server_heartbeat_interval
+                    config.ws_server.local_server_host,
+                    config.ws_server.local_server_port,
+                    config.ws_server.local_server_heartbeat_interval
             ) as server:
                 self.ws_server = server
                 logger.success(
                     f"已在 "
-                    f"{config.dg_lab_play.ws_server.local_server_host}:{config.dg_lab_play.ws_server.local_server_port}"
+                    f"{config.ws_server.local_server_host}:{config.ws_server.local_server_port}"
                     f" 上启动 WebSocket 服务端"
                 )
                 await asyncio.Future()
@@ -198,7 +198,7 @@ class ClientManager:
         self.ws_server_task = asyncio.create_task(self._setup_server())
 
     async def new_client(self, user_id: str) -> Optional[DGLabPlayClient]:
-        if not config.dg_lab_play.ws_server.remote_server:
+        if not config.ws_server.remote_server:
             if self.ws_server:
                 async with DGLabPlayClient(
                         user_id,

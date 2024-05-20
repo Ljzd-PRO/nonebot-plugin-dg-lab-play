@@ -9,7 +9,7 @@ from ..config import Config
 
 __all__ = ["increase_strength", "decrease_strength"]
 
-config = get_plugin_config(Config)
+config = get_plugin_config(Config).dg_lab_play
 
 
 async def strength_control(
@@ -19,11 +19,11 @@ async def strength_control(
 ):
     if not at.available:
         await MessageFactory(
-            config.dg_lab_play.reply_text.please_at_target
+            config.reply_text.please_at_target
         ).finish(at_sender=True)
     elif not percentage_value.available or not 0 < percentage_value.result <= 100:
         await MessageFactory(
-            config.dg_lab_play.reply_text.invalid_strength_param
+            config.reply_text.invalid_strength_param
         ).finish(at_sender=True)
     target_user_id = at.result.target
     if play_client := client_manager.user_id_to_client.get(target_user_id):
@@ -41,22 +41,22 @@ async def strength_control(
                 b_value
             )
             await MessageFactory(
-                config.dg_lab_play.reply_text.successfully_increased if mode == StrengthOperationType.INCREASE
-                else config.dg_lab_play.reply_text.successfully_decreased
+                config.reply_text.successfully_increased if mode == StrengthOperationType.INCREASE
+                else config.reply_text.successfully_decreased
             ).finish(at_sender=True)
         else:
             await MessageFactory(
-                config.dg_lab_play.reply_text.failed_to_fetch_strength_limit
+                config.reply_text.failed_to_fetch_strength_limit
             ).finish(at_sender=True)
     else:
         await MessageFactory(
-            config.dg_lab_play.reply_text.invalid_target
+            config.reply_text.invalid_target
         ).finish(at_sender=True)
 
 
 increase_strength = on_alconna(
     Alconna(
-        config.dg_lab_play.command_text.increase_strength,
+        config.command_text.increase_strength,
         Args["at?", At],
         Args["percentage_value?", float]
     ),
@@ -71,7 +71,7 @@ async def handle_increase_strength(at: Match[At], percentage_value: Match[float]
 
 decrease_strength = on_alconna(
     Alconna(
-        config.dg_lab_play.command_text.decrease_strength,
+        config.command_text.decrease_strength,
         Args["at?", At],
         Args["percentage_value?", float]
     ),
