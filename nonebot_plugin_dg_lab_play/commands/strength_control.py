@@ -10,7 +10,7 @@ from ..client_manager import client_manager
 from ..config import Config
 from ..utils import get_command_start_list
 
-__all__ = ["increase_strength", "decrease_strength"]
+__all__ = ["increase_strength", "decrease_strength", "random_strength"]
 
 config = get_plugin_config(Config).dg_lab_play
 
