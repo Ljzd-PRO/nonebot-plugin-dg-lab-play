@@ -34,10 +34,16 @@ mkdocs-material = "^9.5.22"
 mkdocstrings = {version="^0.25.1", extras=["python"]}
 mike = "^2.1.1"
 
+[tool.poetry.group.test.dependencies]
+flake8 = "^7.0.0"
+
 [tool.poetry.group.dev.dependencies]
 pydevd-pycharm = "^232.10227.11"
 
 [tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.test]
 optional = true
 
 [tool.poetry.group.dev]
