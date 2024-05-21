@@ -1,8 +1,9 @@
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Self
 
 from loguru import logger
 from nonebot import get_driver
+from nonebot.config import BaseSettings
 from pydantic import BaseModel, model_validator
 
 __all__ = [
@@ -40,7 +41,7 @@ class WSServerConfig(BaseModel):
     local_server_heartbeat_interval: Optional[float] = None
 
     @model_validator(mode="after")
-    def validate_config(self):
+    def validate_config(self) -> Self:
         if self.remote_server:
             if not self.remote_server_uri:
                 logger.error("启用了 remote_server，但没有配置 remote_server_uri")
@@ -50,6 +51,7 @@ class WSServerConfig(BaseModel):
                 logger.error(
                     "未开启 remote_server，但没有配置 local_server_host, local_server_port, local_server_publish_uri")
                 raise ValueError
+        return self
 
 
 class DGLabClientConfig(BaseModel):
@@ -145,7 +147,7 @@ class DGLabPlayConfig(BaseModel):
     debug: DebugConfig = DebugConfig()
 
 
-class Config(BaseModel):
+class Config(BaseSettings):
     dg_lab_play: DGLabPlayConfig = DGLabPlayConfig()
 
 
