@@ -1,11 +1,15 @@
 from nonebot import require
 from nonebot.plugin import PluginMetadata, get_plugin_config
 
-from .commands import *
-from .config import Config
+require("nonebot_plugin_saa")
+# noinspection SpellCheckingInspection
+require("nonebot_plugin_alconna")
 
 # import pydevd_pycharm
 # pydevd_pycharm.settrace("127.0.0.1", port=5678, stdoutToServer=True, stderrToServer=True)
+
+from .commands import *
+from .config import Config
 
 config = get_plugin_config(Config).dg_lab_play
 if config.debug.enable_debug:
@@ -24,7 +28,3 @@ __plugin_meta__ = PluginMetadata(
 
 # 检查 local_server_publish_uri 是否直接使用了默认值
 config.ws_server.validate_local_server_publish_uri()
-
-require("nonebot_plugin_saa")
-# noinspection SpellCheckingInspection
-require("nonebot_plugin_alconna")
