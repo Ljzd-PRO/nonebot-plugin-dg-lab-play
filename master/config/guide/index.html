@@ -24,7 +24,7 @@
     
     
       
-        <title>向导 - DG-Lab-Play</title>
+        <title>向导及配置主体 - DG-Lab-Play</title>
       
     
     
@@ -126,7 +126,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              向导
+              向导及配置主体
             
           </span>
         </div>
@@ -448,14 +448,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -508,7 +500,7 @@
           
   
   <span class="md-ellipsis">
-    向导
+    向导及配置主体
   </span>
   
 
@@ -519,7 +511,7 @@
         
   
   <span class="md-ellipsis">
-    向导
+    向导及配置主体
   </span>
   
 
@@ -541,45 +533,44 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      首次使用
+      说明
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="首次使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#websocket" class="md-nav__link">
-    <span class="md-ellipsis">
-      📌（默认）采用本地搭建 WebSocket 服务端的方法
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📌（默认）采用本地搭建 WebSocket 服务端的方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      （可选）设置本地服务端监听主机号和端口
+      插件配置主体
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#dg-lab-app-websocket-uri" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config" class="md-nav__link">
     <span class="md-ellipsis">
-      ❗（必需）设置供 DG-Lab App 连接的本地 WebSocket 服务端 URI
+      config
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.Config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#nonebot_plugin_dg_lab_play.config.Config.dg_lab_play" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐（可选）设置 SSL 连接
+      dg_lab_play
     </span>
   </a>
   
@@ -589,11 +580,66 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      DGLabPlayConfig
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DGLabPlayConfig">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#websocket_1" class="md-nav__link">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.ws_server" class="md-nav__link">
     <span class="md-ellipsis">
-      📌（备选）采用连接远程 WebSocket 服务端的方法
+      ws_server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.dg_lab_client" class="md-nav__link">
+    <span class="md-ellipsis">
+      dg_lab_client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.pulse_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      pulse_data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.command_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      command_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.reply_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      reply_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      debug
     </span>
   </a>
   
@@ -612,6 +658,56 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    配置类别
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            配置类别
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -724,6 +820,14 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
@@ -772,45 +876,44 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      首次使用
+      说明
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="首次使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#websocket" class="md-nav__link">
-    <span class="md-ellipsis">
-      📌（默认）采用本地搭建 WebSocket 服务端的方法
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="📌（默认）采用本地搭建 WebSocket 服务端的方法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      （可选）设置本地服务端监听主机号和端口
+      插件配置主体
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#dg-lab-app-websocket-uri" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config" class="md-nav__link">
     <span class="md-ellipsis">
-      ❗（必需）设置供 DG-Lab App 连接的本地 WebSocket 服务端 URI
+      config
     </span>
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.Config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Config
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Config">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ssl" class="md-nav__link">
+  <a href="#nonebot_plugin_dg_lab_play.config.Config.dg_lab_play" class="md-nav__link">
     <span class="md-ellipsis">
-      🔐（可选）设置 SSL 连接
+      dg_lab_play
     </span>
   </a>
   
@@ -820,11 +923,66 @@
     </nav>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      DGLabPlayConfig
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DGLabPlayConfig">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#websocket_1" class="md-nav__link">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.ws_server" class="md-nav__link">
     <span class="md-ellipsis">
-      📌（备选）采用连接远程 WebSocket 服务端的方法
+      ws_server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.dg_lab_client" class="md-nav__link">
+    <span class="md-ellipsis">
+      dg_lab_client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.pulse_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      pulse_data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.command_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      command_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.reply_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      reply_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      debug
     </span>
   </a>
   
@@ -858,7 +1016,7 @@
   
 
 
-  <h1>向导</h1>
+  <h1>向导及配置主体</h1>
 
 <blockquote>
 <p>nonebot 文档介绍：<a href="https://nonebot.dev/docs/2.3.0/appendices/config#dotenv-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">dotenv 配置文件</a></p>
@@ -867,29 +1025,23 @@
 <p class="admonition-title">注意</p>
 <p>首次使用，必须更改 WebSocket 服务端配置，否则用户将可能无法连接</p>
 </div>
+<h2 id="_1">说明<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>DG-Lab-Play 读取工作目录下的 <code>.env</code> 文件 或 环境变量 来设定配置（是否为 <code>.env.dev</code> 等取决于您的 nonebot 配置）</li>
-<li><strong>用 <code>__</code> 来指定子选项</strong>，即 <code>env_nested_delimiter</code>，例如 <code>DG_LAB_PLAY__WS_SERVER</code> 相当于 <code>dg_lab_play.ws_server</code></li>
-<li>更多配置内容请查看侧边菜单</li>
+<li>填写的配置结构为：<strong><code>DG_LAB_PLAY__{配置类别}__{配置选项}={配置值}</code></strong></li>
+<li>用 <code>__</code> 来指定子选项，即 <code>env_nested_delimiter</code>，例如 <code>DG_LAB_PLAY__WS_SERVER</code> 相当于 <code>dg_lab_play.ws_server</code></li>
 </ul>
-<h2 id="_1">首次使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>有两种配置 DG-Lab WebSocket 服务端的方法，分别为本地搭建和连接远程服务器，默认为本地搭建</p>
-<h3 id="websocket">📌（默认）采用本地搭建 WebSocket 服务端的方法<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h3>
-<p>修改 nonebot 目录下的 <code>.env</code> 文件，参考如下：</p>
-<h4 id="_2">（可选）设置本地服务端监听主机号和端口<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>例如 <code>DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PORT</code> 即 <a class="autorefs autorefs-internal" href="../ws-server/#nonebot_plugin_dg_lab_play.config.WSServerConfig"><code>WSServerConfig.local_server_port</code></a></p>
+<p>参考的 <code>.env</code> 文件：
 <div class="highlight"><pre><span></span><code># 本地搭建的服务端 host，默认为 0.0.0.0
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_HOST=0.0.0.0
 # 本地搭建的服务端监听端口，默认为 4567
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PORT=4567
-</code></pre></div>
-<h4 id="dg-lab-app-websocket-uri">❗（必需）设置供 DG-Lab App 连接的本地 WebSocket 服务端 URI<a class="headerlink" href="#dg-lab-app-websocket-uri" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code># 生成二维码时，使用的本地服务端 URI（需要郊狼用户能够连接，即本机的公网地址）
+# 生成二维码时，使用的本地服务端 URI（需要郊狼用户能够连接，即本机的公网地址）
 # 首次使用，该配置必须更改，默认为本地环回地址，用户的 App 无法连接
 # 普通连接为 ws://，SSL 加密连接为 wss://
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PUBLISH_URI=&quot;ws://my-server.net:4567&quot;
-</code></pre></div>
-<h4 id="ssl">🔐（可选）设置 SSL 连接<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code># 是否启用 SSL 连接
+# 是否启用 SSL 连接
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SECURE=True
 # SSL 证书文件路径
 # 若使用相对路径，起始位置为机器人项目目录
@@ -899,15 +1051,265 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_CERT=&quot;/path/to/证书文件&quot;
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_KEY=&quot;/path/to/私钥文件&quot;
 # SSL 私钥密码
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_PASSWORD=123456
+</code></pre></div></p>
+<h2 id="_2">插件配置主体<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>更多配置内容请查看侧边菜单</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="nonebot_plugin_dg_lab_play.config"></a>
+    <div class="doc doc-contents first">
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="nonebot_plugin_dg_lab_play.config.Config" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">Config</span>
+
+
+<a href="#nonebot_plugin_dg_lab_play.config.Config" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="nonebot.config.BaseSettings">BaseSettings</span></code></p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.Config.dg_lab_play" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">dg_lab_play</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.Config.dg_lab_play" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">dg_lab_play</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig">DGLabPlayConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig">DGLabPlayConfig</a></span><span class="p">()</span>
 </code></pre></div>
-<p>📡 最后，记得完成对公网的端口转发等配置，确保用户能够连接本地搭建的 WebSocket 服务端。</p>
-<h3 id="websocket_1">📌（备选）采用连接远程 WebSocket 服务端的方法<a class="headerlink" href="#websocket_1" title="Permanent link">&para;</a></h3>
-<p>修改 nonebot 目录下的 <code>.env</code> 文件，参考如下：</p>
-<div class="highlight"><pre><span></span><code># 是否连接到远程 WebSocket 服务端
-DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER=True
-# 远程服务端 URI
-DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI=&quot;ws://my-server.net:8080&quot;
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" class="doc doc-heading">
+            <span class="doc doc-object-name doc-class-name">DGLabPlayConfig</span>
+
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.ws_server" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">ws_server</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.ws_server" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">ws_server</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.WSServerConfig" href="../ws-server/#nonebot_plugin_dg_lab_play.config.WSServerConfig">WSServerConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.WSServerConfig" href="../ws-server/#nonebot_plugin_dg_lab_play.config.WSServerConfig">WSServerConfig</a></span><span class="p">()</span>
 </code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.dg_lab_client" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">dg_lab_client</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.dg_lab_client" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">dg_lab_client</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.DGLabClientConfig" href="../dg-lab-client/#nonebot_plugin_dg_lab_play.config.DGLabClientConfig">DGLabClientConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.DGLabClientConfig" href="../dg-lab-client/#nonebot_plugin_dg_lab_play.config.DGLabClientConfig">DGLabClientConfig</a></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.pulse_data" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">pulse_data</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.pulse_data" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">pulse_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.PulseDataConfig" href="../pulse-data/#nonebot_plugin_dg_lab_play.config.PulseDataConfig">PulseDataConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.PulseDataConfig" href="../pulse-data/#nonebot_plugin_dg_lab_play.config.PulseDataConfig">PulseDataConfig</a></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.command_text" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">command_text</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.command_text" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">command_text</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.CommandTextConfig" href="../command-text/#nonebot_plugin_dg_lab_play.config.CommandTextConfig">CommandTextConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.CommandTextConfig" href="../command-text/#nonebot_plugin_dg_lab_play.config.CommandTextConfig">CommandTextConfig</a></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.reply_text" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">reply_text</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.reply_text" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">reply_text</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.ReplyTextConfig" href="../reply-text/#nonebot_plugin_dg_lab_play.config.ReplyTextConfig">ReplyTextConfig</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-internal" title="nonebot_plugin_dg_lab_play.config.ReplyTextConfig" href="../reply-text/#nonebot_plugin_dg_lab_play.config.ReplyTextConfig">ReplyTextConfig</a></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.debug" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">debug</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#nonebot_plugin_dg_lab_play.config.DGLabPlayConfig.debug" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">debug</span><span class="p">:</span> <span class="n"><span title="nonebot_plugin_dg_lab_play.config.DebugConfig">DebugConfig</span></span> <span class="o">=</span> <span class="n"><span title="nonebot_plugin_dg_lab_play.config.DebugConfig">DebugConfig</span></span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 
