@@ -34,6 +34,10 @@ class WSServerConfig(BaseModel):
     :ivar local_server_port: 本地搭建的服务端监听端口
     :ivar local_server_publish_uri: 生成二维码时，使用的本地服务端 URI（需要郊狼用户能够连接）
     :ivar local_server_heartbeat_interval: 本地搭建的服务端心跳包发送间隔，为 ``None`` 关闭
+    :ivar local_server_secure: 是否启用 SSL 连接
+    :ivar local_server_ssl_cert: SSL 证书文件路径
+    :ivar local_server_ssl_key: SSL 证书密钥路径
+    :ivar local_server_ssl_password: SSL 证书密钥密码
     """
     remote_server: bool = False
     remote_server_uri: Optional[str] = None
@@ -44,7 +48,7 @@ class WSServerConfig(BaseModel):
     local_server_secure: bool = False
     local_server_ssl_cert: Optional[Path] = None
     local_server_ssl_key: Optional[Path] = None
-    local_server_ssl_password: Optional[Path] = None
+    local_server_ssl_password: Optional[str] = None
 
     @cached_property
     def ssl_context(self) -> Optional[ssl.SSLContext]:
