@@ -38,8 +38,8 @@ class WSServerConfig(BaseModel):
     :ivar local_server_heartbeat_interval: 本地搭建的服务端心跳包发送间隔，为 ``None`` 关闭
     :ivar local_server_secure: 是否启用 SSL 连接
     :ivar local_server_ssl_cert: SSL 证书文件路径
-    :ivar local_server_ssl_key: SSL 证书密钥路径
-    :ivar local_server_ssl_password: SSL 证书密钥密码
+    :ivar local_server_ssl_key: SSL 私钥路径
+    :ivar local_server_ssl_password: SSL 私钥密码
     """
     remote_server: bool = False
     remote_server_uri: Optional[str] = None
@@ -62,7 +62,7 @@ class WSServerConfig(BaseModel):
                     keyfile=str(self.local_server_ssl_key),
                     password=self.local_server_ssl_password
                 )
-                logger.success("已加载证书和密钥文件")
+                logger.success("已加载证书和私钥文件")
                 return context
             except ssl.SSLError:
                 logger.exception("私钥文件和证书文件不匹配")
@@ -89,7 +89,7 @@ class WSServerConfig(BaseModel):
                             not self.local_server_ssl_key or not self.local_server_ssl_key.is_file()
                     ):
                         logger.error(
-                            "配置了 SSL 密钥密码 local_server_ssl_password，但没有指定密钥文件 local_server_ssl_key 或文件不存在")
+                            "配置了 SSL 私钥密码 local_server_ssl_password，但没有指定私钥文件 local_server_ssl_key 或文件不存在")
                         raise PydanticCustomError
                 else:
                     logger.error(
