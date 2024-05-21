@@ -138,8 +138,10 @@ class PulseDataConfig(BaseModel):
     post_interval: float = 1
     sleep_after_clear: float = 0.5
 
+    # noinspection PyNestedDecorators
     @field_validator("duration_per_post")
-    def validate_duration_per_post(self, value: Any):
+    @classmethod
+    def validate_duration_per_post(cls, value: Any):
         if (isinstance(value, float) or isinstance(value, int)) and value > PULSE_DATA_MAX_LENGTH * 0.1:
             logger.error("PulseDataConfig.duration_per_post 大于每次发送的最大时长，消息过长将发送失败")
             raise PydanticCustomError
