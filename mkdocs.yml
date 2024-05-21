@@ -14,7 +14,7 @@ nav:
     - 欢迎使用 DG-Lab-Play: index.md
     - 关于项目: about.md
 #  - 安装: installation.md
-  - 配置:
+  - 插件配置:
     - 向导: config/guide.md
     - WebSocket 服务端: config/ws-server.md
     - DG-Lab 终端: config/dg-lab-client.md
