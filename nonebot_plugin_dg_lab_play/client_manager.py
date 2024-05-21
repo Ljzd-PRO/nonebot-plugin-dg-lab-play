@@ -8,7 +8,6 @@ from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton,
     DGLabWSClient, PulseOperation, Channel, PULSE_DATA_MAX_LENGTH, PulseDataTooLong
 
 from .config import Config
-from .utils import get_client_ssl_context
 
 __all__ = ["DGLabPlayClient", "client_manager"]
 
@@ -135,7 +134,7 @@ class DGLabPlayClient:
                 async with DGLabWSConnect(
                         config.ws_server.remote_server_uri,
                         config.dg_lab_client.register_timeout,
-                        ssl=get_client_ssl_context()
+                        ssl=True
                 ) as client:
                     self.client = client
                     self.register_finished_lock.release()
