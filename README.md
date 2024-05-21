@@ -7,6 +7,10 @@
 </p>
 
 <p align="center">
+  <a href="https://dg-lab-play.readthedocs.io">📖 完整文档</a>
+</p>
+
+<p align="center">
   <a href="https://www.codefactor.io/repository/github/ljzd-pro/nonebot-plugin-dg-lab-play">
     <img src="https://www.codefactor.io/repository/github/ljzd-pro/nonebot-plugin-dg-lab-play/badge" alt="CodeFactor" />
   </a>
