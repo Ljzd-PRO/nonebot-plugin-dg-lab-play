@@ -51,16 +51,20 @@ class WSServerConfig(BaseModel):
     local_server_ssl_password: Optional[str] = None
 
     @cached_property
-    def ssl_context(self) -> Optional[ssl.SSLContext]:
+    def server_ssl_context(self) -> Optional[ssl.SSLContext]:
         if self.local_server_secure:
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-            context.load_cert_chain(
-                certfile=self.local_server_ssl_cert,
-                keyfile=self.local_server_ssl_key,
-                password=self.local_server_ssl_password
-            )
-            logger.success("已加载证书和密钥文件")
-            return context
+            try:
+                context.load_cert_chain(
+                    certfile=self.local_server_ssl_cert,
+                    keyfile=self.local_server_ssl_key,
+                    password=self.local_server_ssl_password
+                )
+                logger.success("已加载证书和密钥文件")
+                return context
+            except ssl.SSLError:
+                logger.exception("私钥文件和证书文件不匹配")
+                return None
         else:
             return None
 
@@ -81,14 +85,16 @@ class WSServerConfig(BaseModel):
                 logger.warning(
                     "未修改默认本地服务端的 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
             if self.local_server_secure:
-                if self.local_server_ssl_cert:
-                    if self.local_server_ssl_password and not self.local_server_ssl_key:
+                if self.local_server_ssl_cert and self.local_server_ssl_cert.is_file():
+                    if self.local_server_ssl_password and (
+                            not self.local_server_ssl_key or not self.local_server_ssl_key.is_file()
+                    ):
                         logger.error(
-                            "配置了 SSL 密钥密码 local_server_ssl_password，但没有指定密钥文件 local_server_ssl_key")
+                            "配置了 SSL 密钥密码 local_server_ssl_password，但没有指定密钥文件 local_server_ssl_key 或文件不存在")
                         raise ValueError
                 else:
                     logger.error(
-                        "启用了本地服务端安全连接 local_server_secure，但没有指定证书文件 local_server_ssl_cert")
+                        "启用了本地服务端安全连接 local_server_secure，但没有指定证书文件 local_server_ssl_cert 或文件不存在")
                     raise ValueError
         return self
 
