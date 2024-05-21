@@ -5,7 +5,7 @@ from typing import Dict, Optional, Union, Self, Callable, Any, List, Tuple
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
 from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, \
-    DGLabWSClient, PulseOperation, Channel
+    DGLabWSClient, PulseOperation, Channel, PULSE_DATA_MAX_LENGTH, PulseDataTooLong
 
 from .config import Config
 
@@ -157,8 +157,8 @@ class DGLabPlayClient:
                 await self._handle_data(data)
 
     async def _pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
-        if config.pulse_data.duration_per_post > APP_PULSE_QUEUE_LEN / 2:
-            logger.warning("PulseDataConfig.duration_per_post 大于 DG-Lab App 队列最大时长的一半，可能导致波形出现中断")
+        if config.pulse_data.duration_per_post > PULSE_DATA_MAX_LENGTH * 0.1:
+            logger.error("PulseDataConfig.duration_per_post 大于每次发送的最大时长，消息过长将发送失败")
         for channel in channels:
             await self.client.clear_pulses(channel)
         await asyncio.sleep(config.pulse_data.sleep_after_clear)
@@ -169,17 +169,20 @@ class DGLabPlayClient:
         max_pulse_num = int(APP_PULSE_QUEUE_LEN // actual_duration)
         pulse_data_for_post = pulse_data * replay_times
 
-        for _ in range(max_pulse_num):
-            for channel in channels:
-                await self.client.add_pulses(channel, *pulse_data_for_post)
-            await asyncio.sleep(config.pulse_data.post_interval)
+        try:
+            for _ in range(max_pulse_num):
+                for channel in channels:
+                    await self.client.add_pulses(channel, *pulse_data_for_post)
+                await asyncio.sleep(config.pulse_data.post_interval)
 
-        # 减去上面多余的睡眠时间
-        await asyncio.sleep(abs(pulse_data_duration - config.pulse_data.post_interval))
-        while True:
-            for channel in channels:
-                await self.client.add_pulses(channel, *pulse_data_for_post)
-            await asyncio.sleep(pulse_data_duration)
+            # 减去上面多余的睡眠时间
+            await asyncio.sleep(abs(pulse_data_duration - config.pulse_data.post_interval))
+            while True:
+                for channel in channels:
+                    await self.client.add_pulses(channel, *pulse_data_for_post)
+                await asyncio.sleep(pulse_data_duration)
+        except PulseDataTooLong:
+            logger.exception(f"发送的波形数据过长 {config.pulse_data.duration_per_post}s，发送失败")
 
 
 class ClientManager:

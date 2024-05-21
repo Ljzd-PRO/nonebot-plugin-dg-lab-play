@@ -75,13 +75,13 @@ class PulseDataConfig(BaseModel):
 
     :ivar custom_pulse_data: 自定义波形的文件路径，\
         JSON 格式为 波形名称 -> 波形数据（``Array<Array<Number, Number, Number, Number>>``)
-    :ivar duration_per_post: 每次发送的波形最大持续时长，**必须小于等于 8.2**。实际时长将会是 **设定的波形的时长** 的整数倍，倍数向下取整。\
+    :ivar duration_per_post: 每次发送的波形最大持续时长，**必须小于等于 8.6**。实际时长将会是 **设定的波形的时长** 的整数倍，倍数向下取整。\
         在此持续时间内，设定的波形会被重复播放
     :ivar post_interval: 波形发送间隔时间，应尽量小
     :ivar sleep_after_clear: 清除波形后的睡眠时间（避免由于网络波动等原因导致 清空队列指令晚于波形数据执行造成波形数据丢失 的情况）
     """
     custom_pulse_data: Path = DG_LAB_PLAY_DATA_LOCATION / "customPulseData.json"
-    duration_per_post: float = 8.2
+    duration_per_post: float = 8.6
     post_interval: float = 1
     sleep_after_clear: float = 0.5
 
