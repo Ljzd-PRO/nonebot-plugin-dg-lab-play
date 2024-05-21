@@ -1,3 +1,5 @@
+import ssl
+from functools import cached_property
 from pathlib import Path
 from typing import Optional, Self
 
@@ -39,6 +41,24 @@ class WSServerConfig(BaseModel):
     local_server_port: Optional[int] = 4567
     local_server_publish_uri: Optional[str] = "ws://127.0.0.1:4567"
     local_server_heartbeat_interval: Optional[float] = None
+    local_server_secure: bool = False
+    local_server_ssl_cert: Optional[Path] = None
+    local_server_ssl_key: Optional[Path] = None
+    local_server_ssl_password: Optional[Path] = None
+
+    @cached_property
+    def ssl_context(self) -> Optional[ssl.SSLContext]:
+        if self.local_server_secure:
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            context.load_cert_chain(
+                certfile=self.local_server_ssl_cert,
+                keyfile=self.local_server_ssl_key,
+                password=self.local_server_ssl_password
+            )
+            logger.success("已加载证书和密钥文件")
+            return context
+        else:
+            return None
 
     @model_validator(mode="after")
     def validate_config(self) -> Self:
@@ -49,10 +69,23 @@ class WSServerConfig(BaseModel):
         else:
             if not self.local_server_host or not self.local_server_port or not self.local_server_publish_uri:
                 logger.error(
-                    "未开启 remote_server，但没有配置 local_server_host, local_server_port, local_server_publish_uri")
+                    "未使用远程服务端 remote_server，"
+                    "但没有配置本地服务端的 local_server_host, local_server_port, local_server_publish_uri"
+                )
                 raise ValueError
             elif self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default:
-                logger.warning("未修改默认 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
+                logger.warning(
+                    "未修改默认本地服务端的 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
+            if self.local_server_secure:
+                if self.local_server_ssl_cert:
+                    if self.local_server_ssl_password and not self.local_server_ssl_key:
+                        logger.error(
+                            "配置了 SSL 密钥密码 local_server_ssl_password，但没有指定密钥文件 local_server_ssl_key")
+                        raise ValueError
+                else:
+                    logger.error(
+                        "启用了本地服务端安全连接 local_server_secure，但没有指定证书文件 local_server_ssl_cert")
+                    raise ValueError
         return self
 
 

@@ -197,13 +197,14 @@ class ClientManager:
             async with DGLabWSServer(
                     config.ws_server.local_server_host,
                     config.ws_server.local_server_port,
-                    config.ws_server.local_server_heartbeat_interval
+                    config.ws_server.local_server_heartbeat_interval,
+                    ssl=config.ws_server.ssl_context
             ) as server:
                 self.ws_server = server
                 logger.success(
                     f"已在 "
                     f"{config.ws_server.local_server_host}:{config.ws_server.local_server_port}"
-                    f" 上启动 WebSocket 服务端"
+                    f" 上启动 DG-Lab WebSocket 服务端"
                 )
                 logger.info(f"DG-Lab App 将通过 {config.ws_server.local_server_publish_uri} 连接服务端")
                 await asyncio.Future()
