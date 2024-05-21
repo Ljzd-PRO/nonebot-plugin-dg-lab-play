@@ -74,7 +74,7 @@ nb plugin update nonebot-plugin-dg-lab-play
 > [!Warning]
 > 首次使用，必须更改 WebSocket 服务端配置，否则用户将可能无法连接
 
-> [!Info]
+> [!Note]
 > 更多配置内容参考 [插件配置]()
 
 > nonebot 文档介绍：[dotenv 配置文件](https://nonebot.dev/docs/2.3.0/appendices/config#dotenv-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
@@ -102,20 +102,8 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PORT=4567
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PUBLISH_URI="ws://my-server.net:4567"
 ```
 
-📡 最后，记得完成对公网的端口转发等配置，确保用户能够连接本地搭建的 WebSocket 服务端。
-
-### 📌（备选）采用连接远程 WebSocket 服务端的方法
-
-修改 nonebot 目录下的 `.env` 文件，参考如下：
-
-```dotenv
-# 是否连接到远程 WebSocket 服务端
-DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER=True
-# 远程服务端 URI
-DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI="ws://my-server.net:8080"
-```
-
 #### 🔐（可选）设置 SSL 连接
+
 ```dotenv
 # 是否启用 SSL 连接
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SECURE=True
@@ -127,6 +115,19 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_CERT="/path/to/证书文件"
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_KEY="/path/to/私钥文件"
 # SSL 私钥密码
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_PASSWORD=123456
+```
+
+📡 最后，记得完成对公网的端口转发等配置，确保用户能够连接本地搭建的 WebSocket 服务端。
+
+### 📌（备选）采用连接远程 WebSocket 服务端的方法
+
+修改 nonebot 目录下的 `.env` 文件，参考如下：
+
+```dotenv
+# 是否连接到远程 WebSocket 服务端
+DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER=True
+# 远程服务端 URI
+DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI="ws://my-server.net:8080"
 ```
 
 ## 🎉 开始使用
