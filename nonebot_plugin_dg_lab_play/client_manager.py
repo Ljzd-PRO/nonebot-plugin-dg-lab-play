@@ -5,7 +5,7 @@ from typing import Dict, Optional, Union, Self, Callable, Any, List, Tuple
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
 from pydglab_ws import DGLabClient, DGLabWSServer, StrengthData, FeedbackButton, DGLabWSConnect, RetCode, \
-    DGLabWSClient, PulseOperation, Channel, PULSE_DATA_MAX_LENGTH, PulseDataTooLong
+    DGLabWSClient, PulseOperation, Channel, PulseDataTooLong
 
 from .config import Config
 
@@ -159,8 +159,6 @@ class DGLabPlayClient:
                 await self._handle_data(data)
 
     async def _pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
-        if config.pulse_data.duration_per_post > PULSE_DATA_MAX_LENGTH * 0.1:
-            logger.error("PulseDataConfig.duration_per_post 大于每次发送的最大时长，消息过长将发送失败")
         for channel in channels:
             await self.client.clear_pulses(channel)
         await asyncio.sleep(config.pulse_data.sleep_after_clear)

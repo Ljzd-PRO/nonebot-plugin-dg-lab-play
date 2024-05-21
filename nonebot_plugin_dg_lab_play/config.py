@@ -1,13 +1,14 @@
 import ssl
 from functools import cached_property
 from pathlib import Path
-from typing import Optional, Self
+from typing import Optional, Self, Any
 
 from loguru import logger
 from nonebot import get_driver
 from nonebot.config import BaseSettings
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, model_validator, field_validator
 from pydantic_core import PydanticCustomError
+from pydglab_ws import PULSE_DATA_MAX_LENGTH
 
 __all__ = [
     "DG_LAB_PLAY_DATA_LOCATION",
@@ -136,6 +137,14 @@ class PulseDataConfig(BaseModel):
     duration_per_post: float = 8
     post_interval: float = 1
     sleep_after_clear: float = 0.5
+
+    @field_validator("duration_per_post")
+    def validate_duration_per_post(self, value: Any):
+        if (isinstance(value, float) or isinstance(value, int)) and value > PULSE_DATA_MAX_LENGTH * 0.1:
+            logger.error("PulseDataConfig.duration_per_post 大于每次发送的最大时长，消息过长将发送失败")
+            raise PydanticCustomError
+        else:
+            return value
 
 
 class CommandTextConfig(BaseModel):
