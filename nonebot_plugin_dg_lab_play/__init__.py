@@ -22,6 +22,9 @@ __plugin_meta__ = PluginMetadata(
     config=Config,
 )
 
+# 检查 local_server_publish_uri 是否直接使用了默认值
+config.ws_server.validate_local_server_publish_uri()
+
 require("nonebot_plugin_saa")
 # noinspection SpellCheckingInspection
 require("nonebot_plugin_alconna")

@@ -82,9 +82,6 @@ class WSServerConfig(BaseModel):
                     "但没有配置本地服务端的 local_server_host, local_server_port, local_server_publish_uri"
                 )
                 raise PydanticCustomError
-            elif self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default:
-                logger.warning(
-                    "未修改默认本地服务端的 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
             if self.local_server_secure:
                 if self.local_server_ssl_cert and self.local_server_ssl_cert.is_file():
                     if self.local_server_ssl_password and (
@@ -97,6 +94,13 @@ class WSServerConfig(BaseModel):
                     logger.error(
                         "启用了本地服务端安全连接 local_server_secure，但没有指定证书文件 local_server_ssl_cert 或文件不存在")
                     raise PydanticCustomError
+        return self
+
+    def validate_local_server_publish_uri(self) -> Self:
+        if (not self.remote_server and
+                self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default):
+            logger.warning(
+                "未修改默认本地服务端的 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
         return self
 
 
