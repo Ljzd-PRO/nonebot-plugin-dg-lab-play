@@ -81,7 +81,7 @@ class PulseDataConfig(BaseModel):
     :ivar sleep_after_clear: 清除波形后的睡眠时间（避免由于网络波动等原因导致 清空队列指令晚于波形数据执行造成波形数据丢失 的情况）
     """
     custom_pulse_data: Path = DG_LAB_PLAY_DATA_LOCATION / "customPulseData.json"
-    duration_per_post: float = 8.6
+    duration_per_post: float = 8
     post_interval: float = 1
     sleep_after_clear: float = 0.5
 
