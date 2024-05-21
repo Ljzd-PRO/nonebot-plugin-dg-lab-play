@@ -5,9 +5,11 @@ from .commands import *
 from .config import Config
 
 __plugin_meta__ = PluginMetadata(
-    name="dg-lab-play",
+    name="DG-Lab-Play",
     description="在群里和大家一起玩郊狼吧！",
-    usage="",
+    usage=USAGE_TEXT,
+    type="application",
+    homepage="https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play",
     config=Config,
 )
 

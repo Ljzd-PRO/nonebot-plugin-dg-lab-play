@@ -6,7 +6,7 @@ from nonebot_plugin_saa import MessageFactory
 from ..config import Config
 from ..utils import get_command_start_list
 
-__all__ = ["usage"]
+__all__ = ["USAGE_TEXT", "usage"]
 
 config = get_plugin_config(Config).dg_lab_play
 
