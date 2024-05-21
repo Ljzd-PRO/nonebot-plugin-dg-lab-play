@@ -134,8 +134,7 @@ class DGLabPlayClient:
                 try:
                     async with DGLabWSConnect(
                             config.ws_server.remote_server_uri,
-                            config.dg_lab_client.register_timeout,
-                            ssl=True
+                            config.dg_lab_client.register_timeout
                     ) as client:
                         self.client = client
                         self.register_finished_lock.release()
