@@ -20,7 +20,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.9"
 nonebot2 = ">=2.2.0"
-pydglab-ws = "^1.0.0"
+pydglab-ws = "^1.1.0"
 nonebot-plugin-send-anything-anywhere = "^0.6.1"
 nonebot-plugin-alconna = "^0.45.4"
 qrcode = {extras = ["pil"], version = "^7.4.2"}
@@ -31,7 +31,13 @@ mkdocs-material = "^9.5.22"
 mkdocstrings = {version="^0.25.1", extras=["python"]}
 mike = "^2.1.1"
 
+[tool.poetry.group.dev.dependencies]
+pydevd-pycharm = "^232.10227.11"
+
 [tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.dev]
 optional = true
 
 [build-system]

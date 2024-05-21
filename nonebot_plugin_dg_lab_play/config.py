@@ -36,7 +36,7 @@ class WSServerConfig(BaseModel):
     remote_server_uri: Optional[str] = None
     local_server_host: Optional[str] = "0.0.0.0"
     local_server_port: Optional[int] = 4567
-    local_server_publish_uri: Optional[str] = "ws://192.168.1.162:4567"
+    local_server_publish_uri: Optional[str] = "ws://127.0.0.1:4567"
     local_server_heartbeat_interval: Optional[float] = None
 
     @model_validator(mode="after")
@@ -129,12 +129,20 @@ class ReplyTextConfig(BaseModel):
     successfully_set_to_strength: str = "郊狼强度成功设置为 {}%！"
 
 
+class DebugConfig(BaseModel):
+    """调试设置，使用 pydevd-pycharm 进行调试"""
+    enable_debug: bool = False
+    ide_host: str = "127.0.0.1"
+    ide_port: int = 5678
+
+
 class DGLabPlayConfig(BaseModel):
     ws_server: WSServerConfig = WSServerConfig()
     dg_lab_client: DGLabClientConfig = DGLabClientConfig()
     pulse_data: PulseDataConfig = PulseDataConfig()
     command_text: CommandTextConfig = CommandTextConfig()
     reply_text: ReplyTextConfig = ReplyTextConfig()
+    debug: DebugConfig = DebugConfig()
 
 
 class Config(BaseModel):
