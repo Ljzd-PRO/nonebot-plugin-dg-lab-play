@@ -213,6 +213,8 @@ class ClientManager:
                     )
                     logger.info(f"DG-Lab App 将通过 {config.ws_server.local_server_publish_uri} 连接服务端")
                     await asyncio.Future()
+            else:
+                logger.info(f"DG-Lab App 将通过 {config.ws_server.remote_server_uri} 连接服务端")
         except Exception:
             logger.exception("运行 DG-Lab WebSocket 服务端的时候出现了异常，服务端已关闭")
 
