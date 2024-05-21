@@ -32,7 +32,7 @@ mkdocstrings = {version="^0.25.1", extras=["python"]}
 mike = "^2.1.1"
 
 [tool.poetry.group.dev.dependencies]
-pydevd-pycharm = "^232.10227.11"
+pydevd-pycharm = "^242.10180.30"
 
 [tool.poetry.group.docs]
 optional = true
