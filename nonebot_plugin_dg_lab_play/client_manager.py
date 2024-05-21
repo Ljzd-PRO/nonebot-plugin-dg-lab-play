@@ -1,6 +1,9 @@
 import asyncio
 from functools import cached_property
-from typing import Dict, Optional, Union, Self, Callable, Any, List, Tuple
+from typing import Dict, Optional, Union, Callable, Any, List, Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Self
 
 from loguru import logger
 from nonebot import get_plugin_config, get_driver
@@ -26,7 +29,7 @@ class DGLabPlayClient:
     :param client: pydglab-ws 的终端对象
     """
 
-    def __init__(self, user_id: str, destroy_callback: Callable[[Self], Any], client: DGLabClient = None):
+    def __init__(self, user_id: str, destroy_callback: Callable[["Self"], Any], client: DGLabClient = None):
         self.user_id = user_id
         self.client: Optional[DGLabClient] = client
         self._destroy_callback = destroy_callback
@@ -40,7 +43,7 @@ class DGLabPlayClient:
         self.register_finished_lock = asyncio.Lock()
         self.bind_finished_lock = asyncio.Lock()
 
-    async def __aenter__(self) -> Self:
+    async def __aenter__(self) -> "Self":
         for lock in self.register_finished_lock, self.bind_finished_lock:
             await lock.acquire()
         self.fetch_task = asyncio.create_task(self._serve())

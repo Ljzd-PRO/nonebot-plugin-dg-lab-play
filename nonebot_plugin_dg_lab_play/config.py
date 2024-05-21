@@ -1,7 +1,10 @@
 import ssl
 from functools import cached_property
 from pathlib import Path
-from typing import Optional, Self, Any
+from typing import Optional, Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Self
 
 from loguru import logger
 from nonebot import get_driver
@@ -71,7 +74,7 @@ class WSServerConfig(BaseModel):
             return None
 
     @model_validator(mode="after")
-    def validate_config(self) -> Self:
+    def validate_config(self) -> "Self":
         if self.remote_server:
             if not self.remote_server_uri:
                 logger.error("启用了 remote_server，但没有配置 remote_server_uri")
@@ -97,7 +100,7 @@ class WSServerConfig(BaseModel):
                     raise PydanticCustomError
         return self
 
-    def validate_local_server_publish_uri(self) -> Self:
+    def validate_local_server_publish_uri(self) -> "Self":
         if (not self.remote_server and
                 self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default):
             logger.warning(
