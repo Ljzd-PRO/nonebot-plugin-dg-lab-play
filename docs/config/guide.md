@@ -41,10 +41,10 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SECURE=True
 # SSL 证书文件路径
 # 若使用相对路径，起始位置为机器人项目目录
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_CERT="/path/to/证书文件"
-# SSL 证书密钥路径
+# SSL 私钥路径
 # 若使用相对路径，起始位置为机器人项目目录
-DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_KEY="/path/to/密钥文件"
-# SSL 证书密钥密码
+DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_KEY="/path/to/私钥文件"
+# SSL 私钥密码
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_PASSWORD=123456
 ```
 
