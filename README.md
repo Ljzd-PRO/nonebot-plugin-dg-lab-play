@@ -75,7 +75,7 @@ nb plugin update nonebot-plugin-dg-lab-play
 > 首次使用，必须更改 WebSocket 服务端配置，否则用户将可能无法连接
 
 > [!Note]
-> 更多配置内容参考 [插件配置]()
+> 更多配置内容参考 [插件配置](https://dg-lab-play.readthedocs.io/zh-cn/latest/config/guide/)
 
 > nonebot 文档介绍：[dotenv 配置文件](https://nonebot.dev/docs/2.3.0/appendices/config#dotenv-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
 
@@ -135,8 +135,8 @@ DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI="ws://my-server.net:8080"
 默认情况下，向机器人发送 `/郊狼玩法` 以查看完整帮助信息
 
 命令和回复文本均可自定义，具体可参考
-[`CommandTextConfig`](), 
-[`ReplyTextConfig`]()
+[`CommandTextConfig`](https://dg-lab-play.readthedocs.io/zh-cn/latest/config/command-text/#nonebot_plugin_dg_lab_play.config.CommandTextConfig), 
+[`ReplyTextConfig`](https://dg-lab-play.readthedocs.io/zh-cn/latest/config/reply-text/#nonebot_plugin_dg_lab_play.config.ReplyTextConfig)
 
 ## 💡 更多
 
