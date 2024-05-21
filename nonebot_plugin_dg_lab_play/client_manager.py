@@ -77,6 +77,7 @@ class DGLabPlayClient:
             self.fetch_task.cancel()
         if self.pulse_task and not self.pulse_task.cancelled() and not self.pulse_task.done():
             self.pulse_task.cancel()
+        logger.info(f"已结束并摧毁 {self.user_id} - {self.client.client_id} 的终端")
 
     async def wait_for_bind(self, rebind: bool = False) -> bool:
         """
