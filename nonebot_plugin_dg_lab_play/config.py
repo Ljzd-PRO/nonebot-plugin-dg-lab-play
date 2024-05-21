@@ -7,6 +7,7 @@ from loguru import logger
 from nonebot import get_driver
 from nonebot.config import BaseSettings
 from pydantic import BaseModel, model_validator
+from pydantic_core import PydanticCustomError
 
 __all__ = [
     "DG_LAB_PLAY_DATA_LOCATION",
@@ -73,14 +74,14 @@ class WSServerConfig(BaseModel):
         if self.remote_server:
             if not self.remote_server_uri:
                 logger.error("启用了 remote_server，但没有配置 remote_server_uri")
-                raise ValueError
+                raise PydanticCustomError
         else:
             if not self.local_server_host or not self.local_server_port or not self.local_server_publish_uri:
                 logger.error(
                     "未使用远程服务端 remote_server，"
                     "但没有配置本地服务端的 local_server_host, local_server_port, local_server_publish_uri"
                 )
-                raise ValueError
+                raise PydanticCustomError
             elif self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default:
                 logger.warning(
                     "未修改默认本地服务端的 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
@@ -91,11 +92,11 @@ class WSServerConfig(BaseModel):
                     ):
                         logger.error(
                             "配置了 SSL 密钥密码 local_server_ssl_password，但没有指定密钥文件 local_server_ssl_key 或文件不存在")
-                        raise ValueError
+                        raise PydanticCustomError
                 else:
                     logger.error(
                         "启用了本地服务端安全连接 local_server_secure，但没有指定证书文件 local_server_ssl_cert 或文件不存在")
-                    raise ValueError
+                    raise PydanticCustomError
         return self
 
 
