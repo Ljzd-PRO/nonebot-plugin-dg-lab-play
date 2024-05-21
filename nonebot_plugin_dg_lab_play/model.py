@@ -1,6 +1,7 @@
 import json
 from typing import Dict, List, Any
 
+from loguru import logger
 from nonebot import get_plugin_config, get_driver
 from pydantic import RootModel
 from pydglab_ws import PulseOperation
@@ -174,6 +175,7 @@ def load_custom_pulse_data():
                 ensure_ascii=False,
                 cls=CustomPulseDataJSONEncoder
             )
+        logger.success(f"储存自定义波形的文件不存在，已创建，并写入了内置波形 - {config.pulse_data.custom_pulse_data}")
         with (DG_LAB_PLAY_DATA_LOCATION / CUSTOM_PULSE_DATA_SCHEMA_FILENAME).open("w", encoding="utf-8") as f:
             json.dump(
                 custom_pulse_data.model_json_schema(),
@@ -182,6 +184,9 @@ def load_custom_pulse_data():
                 ensure_ascii=False,
                 cls=CustomPulseDataJSONEncoder
             )
+        logger.success("导出了自定义波形文件对应的 JSON Schema 文件 - "
+                       f"{DG_LAB_PLAY_DATA_LOCATION / CUSTOM_PULSE_DATA_SCHEMA_FILENAME}")
     else:
         with config.pulse_data.custom_pulse_data.open(encoding="utf-8") as f:
             custom_pulse_data.root = CustomPulseData.model_validate(json.load(f)).root
+        logger.success(f"成功读取自定义波形文件 - {config.pulse_data.custom_pulse_data}")
