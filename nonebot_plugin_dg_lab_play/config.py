@@ -112,7 +112,7 @@ class DGLabClientConfig(BaseModel):
     :ivar bind_timeout: 绑定超时时间（秒）
     :ivar register_timeout: 终端注册（获取 ``clientId``）超时时间（秒）
     """
-    bind_timeout: float = 60
+    bind_timeout: float = 90
     register_timeout: float = 30
 
 
