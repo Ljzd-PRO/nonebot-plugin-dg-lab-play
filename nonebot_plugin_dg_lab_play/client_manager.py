@@ -192,21 +192,24 @@ class ClientManager:
         self.ws_server_task: Optional[asyncio.Task] = None
 
     async def _setup_server(self):
-        if not config.ws_server.remote_server:
-            async with DGLabWSServer(
-                    config.ws_server.local_server_host,
-                    config.ws_server.local_server_port,
-                    config.ws_server.local_server_heartbeat_interval,
-                    ssl=config.ws_server.server_ssl_context
-            ) as server:
-                self.ws_server = server
-                logger.success(
-                    f"已在 "
-                    f"{config.ws_server.local_server_host}:{config.ws_server.local_server_port}"
-                    f" 上启动 DG-Lab WebSocket 服务端"
-                )
-                logger.info(f"DG-Lab App 将通过 {config.ws_server.local_server_publish_uri} 连接服务端")
-                await asyncio.Future()
+        try:
+            if not config.ws_server.remote_server:
+                async with DGLabWSServer(
+                        config.ws_server.local_server_host,
+                        config.ws_server.local_server_port,
+                        config.ws_server.local_server_heartbeat_interval,
+                        ssl=config.ws_server.server_ssl_context
+                ) as server:
+                    self.ws_server = server
+                    logger.success(
+                        f"已在 "
+                        f"{config.ws_server.local_server_host}:{config.ws_server.local_server_port}"
+                        f" 上启动 DG-Lab WebSocket 服务端"
+                    )
+                    logger.info(f"DG-Lab App 将通过 {config.ws_server.local_server_publish_uri} 连接服务端")
+                    await asyncio.Future()
+        except Exception:
+            logger.exception("运行 DG-Lab WebSocket 服务端的时候出现了异常，服务端已关闭")
 
     def serve(self):
         self.ws_server_task = asyncio.create_task(self._setup_server())
