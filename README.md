@@ -140,6 +140,8 @@ DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI="ws://my-server.net:8080"
 
 ## 💡 更多
 
+PyPI: https://pypi.org/project/nonebot-plugin-dg-lab-play/
+
 ### 是如何实现的郊狼控制？
 
 本插件使用 [PyDGLab-WS](https://github.com/Ljzd-PRO/PyDGLab-WS) 创建服务端和终端以实现对 DG-Lab App 的控制
