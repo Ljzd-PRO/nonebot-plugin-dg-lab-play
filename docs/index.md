@@ -99,6 +99,7 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PUBLISH_URI="ws://my-server.net:4567"
 ```
 
 #### 🔐（可选）设置 SSL 连接
+
 ```dotenv
 # 是否启用 SSL 连接
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SECURE=True
