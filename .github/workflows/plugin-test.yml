@@ -6,7 +6,7 @@ on:
     branches: [ "master" ]
     paths:
       - ".github/actions/setup-python/**"
-      - ".github/workflows/python-package.yml"
+      - ".github/workflows/plugin-test.yml"
       - "nonebot_plugin_dg_lab_play/**"
       - "pyproject.toml"
       - "poetry.lock"
@@ -14,7 +14,7 @@ on:
     branches: [ "master" ]
     paths:
       - ".github/actions/setup-python/**"
-      - ".github/workflows/python-package.yml"
+      - ".github/workflows/plugin-test.yml"
       - "nonebot_plugin_dg_lab_play/**"
       - "pyproject.toml"
       - "poetry.lock"
@@ -30,10 +30,6 @@ jobs:
       output: ${{ steps.plugin-test.outputs.OUTPUT }}
       metadata: ${{ steps.plugin-test.outputs.METADATA }}
     steps:
-      - name: Install Poetry
-        if: ${{ !startsWith(github.event_name, 'pull_request') }}
-        run: pipx install poetry
-
       - name: Setup Python environment
         uses: ./.github/actions/setup-python
         with:
