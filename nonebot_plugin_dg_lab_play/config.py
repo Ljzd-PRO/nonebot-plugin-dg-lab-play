@@ -193,6 +193,7 @@ class ReplyTextConfig(BaseModel):
     successfully_set_pulse: str = "郊狼波形成功设置为【{}】！"
     successfully_set_to_strength: str = "郊狼强度成功设置为 {}%！"
 
+
 class DebugConfig(BaseModel):
     """调试设置，使用 pydevd-pycharm 进行调试"""
     enable_debug: bool = False
