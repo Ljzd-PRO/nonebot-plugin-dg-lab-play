@@ -168,6 +168,7 @@ class CommandTextConfig(BaseModel):
 
 class ReplyTextConfig(BaseModel):
     """命令响应文本设置"""
+
     bind_timeout: str = "绑定超时"
     current_players: str = "当前玩家："
     current_pulse: str = "当前波形循环为：【{}】"
@@ -184,13 +185,13 @@ class ReplyTextConfig(BaseModel):
     not_bind_yet: str = "你目前没有绑定 DG-Lab App"
     please_at_target: str = "使用命令的同时请 @ 想要控制的玩家"
     please_scan_qrcode: str = "请用 DG-Lab App 扫描二维码以连接"
+    please_set_pulse_first: str = "请先设置郊狼波形：{}"
     pulses_empty: str = "当前波形循环为空"
     successfully_bind: str = "绑定成功，可以开始色色了！"
     successfully_decreased: str = "郊狼强度减小了 {}%"
     successfully_increased: str = "郊狼强度加强了 {}%！"
     successfully_set_pulse: str = "郊狼波形成功设置为【{}】！"
     successfully_set_to_strength: str = "郊狼强度成功设置为 {}%！"
-
 
 class DebugConfig(BaseModel):
     """调试设置，使用 pydevd-pycharm 进行调试"""

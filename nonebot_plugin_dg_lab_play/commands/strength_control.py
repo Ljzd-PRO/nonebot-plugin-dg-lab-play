@@ -31,7 +31,13 @@ async def strength_control(
         ).finish(at_sender=True)
     target_user_id = at.result.target
     if play_client := client_manager.user_id_to_client.get(target_user_id):
-        if play_client.last_strength:
+        if not play_client.pulse_data:
+            await MessageFactory(
+                config.reply_text.please_set_pulse_first.format(
+                    f"{get_command_start_list()[0]}{config.command_text.random_pulse}"
+                )
+            ).finish(at_sender=True)
+        elif play_client.last_strength:
             a_value = round(play_client.last_strength.a_limit * (percentage_value.result / 100))
             b_value = round(play_client.last_strength.b_limit * (percentage_value.result / 100))
             await play_client.client.set_strength(
