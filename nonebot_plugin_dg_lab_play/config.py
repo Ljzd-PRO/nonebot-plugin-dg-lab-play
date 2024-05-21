@@ -51,6 +51,8 @@ class WSServerConfig(BaseModel):
                 logger.error(
                     "未开启 remote_server，但没有配置 local_server_host, local_server_port, local_server_publish_uri")
                 raise ValueError
+            elif self.local_server_publish_uri == self.model_fields["local_server_publish_uri"].default:
+                logger.warning("未修改默认 local_server_publish_uri，DG-Lab App 将可能无法通过生成的二维码进行连接")
         return self
 
 

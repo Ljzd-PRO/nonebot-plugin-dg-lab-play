@@ -114,6 +114,7 @@ class DGLabPlayClient:
         self.pulse_task = asyncio.create_task(
             self._pulse_job(pulse_data, *channels)
         )
+        logger.info(f"已为用户 {self.user_id} 设置波形任务，波形长度 {len(pulse_data)}")
 
     async def _handle_data(self, data: Union[StrengthData, FeedbackButton, RetCode]):
         """处理消息"""
@@ -204,6 +205,7 @@ class ClientManager:
                     f"{config.ws_server.local_server_host}:{config.ws_server.local_server_port}"
                     f" 上启动 WebSocket 服务端"
                 )
+                logger.info(f"DG-Lab App 将通过 {config.ws_server.local_server_publish_uri} 连接服务端")
                 await asyncio.Future()
 
     def serve(self):
