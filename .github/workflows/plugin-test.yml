@@ -39,4 +39,4 @@ jobs:
       - name: Test Plugin
         id: plugin-test
         run: |
-          curl -sSL https://github.com/nonebot/noneflow/releases/latest/download/plugin_test.py | python -
+          poetry run python -m tests.plugin_test
