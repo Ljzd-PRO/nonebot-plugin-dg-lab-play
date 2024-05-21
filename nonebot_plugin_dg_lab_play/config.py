@@ -58,8 +58,8 @@ class WSServerConfig(BaseModel):
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
             try:
                 context.load_cert_chain(
-                    certfile=self.local_server_ssl_cert,
-                    keyfile=self.local_server_ssl_key,
+                    certfile=str(self.local_server_ssl_cert),
+                    keyfile=str(self.local_server_ssl_key),
                     password=self.local_server_ssl_password
                 )
                 logger.success("已加载证书和密钥文件")
