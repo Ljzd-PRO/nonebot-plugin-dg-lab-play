@@ -30,6 +30,7 @@ jobs:
       output: ${{ steps.plugin-test.outputs.OUTPUT }}
       metadata: ${{ steps.plugin-test.outputs.METADATA }}
     steps:
+      - uses: actions/checkout@v4
       - name: Setup Python environment
         uses: ./.github/actions/setup-python
         with:
