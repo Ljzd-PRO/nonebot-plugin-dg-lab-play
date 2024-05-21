@@ -129,60 +129,66 @@ class DGLabPlayClient:
 
     async def _serve(self):
         """建立终端连接，并不断获取和处理消息"""
-        if config.ws_server.remote_server:
-            try:
-                async with DGLabWSConnect(
-                        config.ws_server.remote_server_uri,
-                        config.dg_lab_client.register_timeout,
-                        ssl=True
-                ) as client:
-                    self.client = client
-                    self.register_finished_lock.release()
-                    logger.success(f"终端 {client.client_id} 成功注册")
-                    if not await self.wait_for_bind():
-                        logger.warning(f"终端 {client.client_id} 等待绑定超时")
-                        return
-                    logger.success(f"终端 {client.client_id} 成功与 App {client.target_id} 绑定")
-                    async for data in client.data_generator():
-                        await self._handle_data(data)
-            except asyncio.TimeoutError:
-                logger.error(f"终端从 {config.ws_server.remote_server_uri} 获取 clientId 超时")
-                await self.destroy()
-                return
-        else:
-            self.register_finished_lock.release()
-            if not await self.wait_for_bind():
-                logger.warning(f"终端 {self.client.client_id} 等待绑定超时")
-                return
-            logger.success(f"终端 {self.client.client_id} 成功与 App {self.client.target_id} 绑定")
-            async for data in self.client.data_generator():
-                await self._handle_data(data)
+        try:
+            if config.ws_server.remote_server:
+                try:
+                    async with DGLabWSConnect(
+                            config.ws_server.remote_server_uri,
+                            config.dg_lab_client.register_timeout,
+                            ssl=True
+                    ) as client:
+                        self.client = client
+                        self.register_finished_lock.release()
+                        logger.success(f"终端 {client.client_id} 成功注册")
+                        if not await self.wait_for_bind():
+                            logger.warning(f"终端 {client.client_id} 等待绑定超时")
+                            return
+                        logger.success(f"终端 {client.client_id} 成功与 App {client.target_id} 绑定")
+                        async for data in client.data_generator():
+                            await self._handle_data(data)
+                except asyncio.TimeoutError:
+                    logger.error(f"终端从 {config.ws_server.remote_server_uri} 获取 clientId 超时")
+                    await self.destroy()
+                    return
+            else:
+                self.register_finished_lock.release()
+                if not await self.wait_for_bind():
+                    logger.warning(f"终端 {self.client.client_id} 等待绑定超时")
+                    return
+                logger.success(f"终端 {self.client.client_id} 成功与 App {self.client.target_id} 绑定")
+                async for data in self.client.data_generator():
+                    await self._handle_data(data)
+        except Exception:
+            logger.exception("终端连接出现异常，已退出")
 
     async def _pulse_job(self, pulse_data: List[PulseOperation], *channels: Channel):
-        for channel in channels:
-            await self.client.clear_pulses(channel)
-        await asyncio.sleep(config.pulse_data.sleep_after_clear)
-
-        pulse_data_duration = len(pulse_data) * 0.1
-        replay_times = int(config.pulse_data.duration_per_post // pulse_data_duration)
-        actual_duration = replay_times * pulse_data_duration
-        max_pulse_num = int(APP_PULSE_QUEUE_LEN // actual_duration)
-        pulse_data_for_post = pulse_data * replay_times
-
         try:
-            for _ in range(max_pulse_num):
-                for channel in channels:
-                    await self.client.add_pulses(channel, *pulse_data_for_post)
-                await asyncio.sleep(config.pulse_data.post_interval)
+            for channel in channels:
+                await self.client.clear_pulses(channel)
+            await asyncio.sleep(config.pulse_data.sleep_after_clear)
 
-            # 减去上面多余的睡眠时间
-            await asyncio.sleep(abs(pulse_data_duration - config.pulse_data.post_interval))
-            while True:
-                for channel in channels:
-                    await self.client.add_pulses(channel, *pulse_data_for_post)
-                await asyncio.sleep(pulse_data_duration)
-        except PulseDataTooLong:
-            logger.exception(f"发送的波形数据过长 {config.pulse_data.duration_per_post}s，发送失败")
+            pulse_data_duration = len(pulse_data) * 0.1
+            replay_times = int(config.pulse_data.duration_per_post // pulse_data_duration)
+            actual_duration = replay_times * pulse_data_duration
+            max_pulse_num = int(APP_PULSE_QUEUE_LEN // actual_duration)
+            pulse_data_for_post = pulse_data * replay_times
+
+            try:
+                for _ in range(max_pulse_num):
+                    for channel in channels:
+                        await self.client.add_pulses(channel, *pulse_data_for_post)
+                    await asyncio.sleep(config.pulse_data.post_interval)
+
+                # 减去上面多余的睡眠时间
+                await asyncio.sleep(abs(pulse_data_duration - config.pulse_data.post_interval))
+                while True:
+                    for channel in channels:
+                        await self.client.add_pulses(channel, *pulse_data_for_post)
+                    await asyncio.sleep(pulse_data_duration)
+            except PulseDataTooLong:
+                logger.exception(f"发送的波形数据过长 {config.pulse_data.duration_per_post}s，发送失败")
+        except Exception:
+            logger.exception("波形发送任务出现异常，已退出")
 
 
 class ClientManager:
