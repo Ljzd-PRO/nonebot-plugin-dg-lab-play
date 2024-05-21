@@ -53,9 +53,11 @@
 ## 🔨 安装
 
 ### 🔨 安装
+
+> 关于 nonebot 的安装和使用：[快速上手](https://nonebot.dev/docs/2.3.0/quick-start)
+
 在您已经完成 nonebot 项目的创建和 nb-cli 脚手架的安装的前提下，\
 在机器人项目下执行：
-> 关于 nonebot 的安装和使用：[快速上手](https://nonebot.dev/docs/2.3.0/quick-start)
 
 ```bash
 nb plugin install nonebot-plugin-dg-lab-play
