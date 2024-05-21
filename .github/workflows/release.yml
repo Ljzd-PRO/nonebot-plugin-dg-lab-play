@@ -20,3 +20,5 @@ jobs:
         with:
           body_path: CHANGELOG.md
           prerelease: ${{ contains(github.ref, 'beta') }}
+      - name: Publish
+        uses: ./.github/workflows/python-publish.yml
