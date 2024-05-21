@@ -15,12 +15,13 @@ nav:
     - 关于项目: about.md
 #  - 安装: installation.md
   - 插件配置:
-    - 向导: config/guide.md
-    - WebSocket 服务端: config/ws-server.md
-    - DG-Lab 终端: config/dg-lab-client.md
-    - 郊狼波形数据: config/pulse-data.md
-    - 命令触发文本: config/command-text.md
-    - 命令响应文本: config/reply-text.md
+    - 向导及配置主体: config/guide.md
+    - 配置类别:
+      - WebSocket 服务端: config/ws-server.md
+      - DG-Lab 终端: config/dg-lab-client.md
+      - 郊狼波形数据: config/pulse-data.md
+      - 命令触发文本: config/command-text.md
+      - 命令响应文本: config/reply-text.md
   - 常见问题: faq.md
 
 plugins:
