@@ -79,7 +79,7 @@ nb plugin update nonebot-plugin-dg-lab-play
 
 修改 nonebot 目录下的 `.env` 文件，参考如下：
 
-#### （可选）设置本地服务端监听主机号和端口
+#### 🔗（可选）设置本地服务端监听主机号和端口
 ```dotenv
 # 本地搭建的服务端 host，默认为 0.0.0.0
 DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_HOST=0.0.0.0
@@ -107,6 +107,20 @@ DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_PUBLISH_URI="ws://my-server.net:4567"
 DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER=True
 # 远程服务端 URI
 DG_LAB_PLAY__WS_SERVER__REMOTE_SERVER_URI="ws://my-server.net:8080"
+```
+
+#### 🔐（可选）设置 SSL 连接
+```dotenv
+# 是否启用 SSL 连接
+DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SECURE=True
+# SSL 证书文件路径
+# 若使用相对路径，起始位置为机器人项目目录
+DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_CERT="/path/to/证书文件"
+# SSL 证书密钥路径
+# 若使用相对路径，起始位置为机器人项目目录
+DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_KEY="/path/to/密钥文件"
+# SSL 证书密钥密码
+DG_LAB_PLAY__WS_SERVER__LOCAL_SERVER_SSL_PASSWORD=123456
 ```
 
 ## 🎉 开始使用
