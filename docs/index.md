@@ -11,6 +11,10 @@
     <img src="https://www.codefactor.io/repository/github/ljzd-pro/nonebot-plugin-dg-lab-play/badge" alt="CodeFactor" />
   </a>
 
+  <a href="https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play/actions/workflows/plugin-test.yml" target="_blank">
+    <img alt="Test Result" src="https://img.shields.io/github/actions/workflow/status/Ljzd-PRO/nonebot-plugin-dg-lab-play/plugin-test.yml">
+  </a>
+
   <a href='https://dg-lab-play.readthedocs.io/'>
     <img src='https://readthedocs.org/projects/dg-lab-play/badge/?version=latest' alt='Documentation Status' />
   </a>
