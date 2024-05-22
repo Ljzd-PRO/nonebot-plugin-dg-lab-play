@@ -15,6 +15,7 @@ import os
 import re
 from asyncio import create_subprocess_shell, run, subprocess
 from pathlib import Path
+from typing import Optional, List, Dict
 
 FAKE_SCRIPT = """from typing import Optional, Union
 
@@ -131,7 +132,7 @@ else:
 """
 
 
-def strip_ansi(text: str | None) -> str:
+def strip_ansi(text: Optional[str]) -> str:
     """去除 ANSI 转义字符"""
     if not text:
         return ""
@@ -141,7 +142,7 @@ def strip_ansi(text: str | None) -> str:
 
 class PluginTest:
     def __init__(
-            self, module_name: str, config: str | None = None, python: str = ">=3.9,<4.0"
+            self, module_name: str, config: str = None, python: str = ">=3.9,<4.0"
     ) -> None:
         self.module_name = module_name
         self.config = config
@@ -153,7 +154,7 @@ class PluginTest:
         self._deps = []
 
         # 输出信息
-        self._output_lines: list[str] = []
+        self._output_lines: List[str] = []
 
         # 插件测试目录
         self.test_dir = Path("plugin_test")
@@ -194,7 +195,7 @@ class PluginTest:
         return self._run, output
 
     @staticmethod
-    def get_env() -> dict[str, str]:
+    def get_env() -> Dict[str, str]:
         """获取环境变量"""
         env = os.environ.copy()
         # 启用 LOGURU 的颜色输出
