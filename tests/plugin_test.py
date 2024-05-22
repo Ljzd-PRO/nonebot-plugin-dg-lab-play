@@ -387,8 +387,9 @@ async def main():
         "nonebot_plugin_dg_lab_play",
         "",
     )
-    await test.run()
+    return await test.run()
 
 
 if __name__ == "__main__":
-    run(main())
+    is_success, _ = run(main())
+    exit(not is_success)
