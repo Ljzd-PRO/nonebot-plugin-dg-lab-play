@@ -8,6 +8,7 @@ on:
       - ".github/actions/setup-python/**"
       - ".github/workflows/plugin-test.yml"
       - "nonebot_plugin_dg_lab_play/**"
+      - "tests/**"
       - "pyproject.toml"
       - "poetry.lock"
   pull_request:
@@ -16,6 +17,7 @@ on:
       - ".github/actions/setup-python/**"
       - ".github/workflows/plugin-test.yml"
       - "nonebot_plugin_dg_lab_play/**"
+      - "tests/**"
       - "pyproject.toml"
       - "poetry.lock"
 
