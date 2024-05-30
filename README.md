@@ -60,18 +60,40 @@
 
 > 关于 nonebot 的安装和使用：[快速上手](https://nonebot.dev/docs/2.3.0/quick-start)
 
-在您已经完成 nonebot 项目的创建和 nb-cli 脚手架的安装的前提下，\
-在机器人项目下执行：
+> [!Note]
+> 由于插件是近期发布的，因此要等 nonebot 发布 v2.3.1 之后的新版本才能用 nb-cli 安装，
+> 在此之前需要手动进入机器人项目虚拟环境并用 pip 安装
 
+1. 在机器人项目目录下运行（如果创建项目时没有选择创建虚拟环境则可以跳过）
+  - Windows
+  ```powershell
+  .\.venv\Scripts\activate
+  ```
+  - Linux / macOS / ...(Unix)
+  ```bash
+  source activate .venv/bin/activate
+  ```
+2. 运行安装命令
 ```bash
-nb plugin install nonebot-plugin-dg-lab-play
+pip install nonebot-plugin-dg-lab-play
+```
+3. 使用命令退出虚拟环境
+```bash
+deactivate
 ```
 
-### ⬆️ 更新
+[//]: # (在您已经完成 nonebot 项目的创建和 nb-cli 脚手架的安装的前提下，\ )
+[//]: # (在机器人项目下执行：)
 
-```bash
-nb plugin update nonebot-plugin-dg-lab-play
-```
+[//]: # (```bash)
+[//]: # (nb plugin install nonebot-plugin-dg-lab-play)
+[//]: # (```)
+
+[//]: # (### ⬆️ 更新)
+
+[//]: # (```bash)
+[//]: # (nb plugin update nonebot-plugin-dg-lab-play)
+[//]: # (```)
 
 ## ⚙️ 配置
 
