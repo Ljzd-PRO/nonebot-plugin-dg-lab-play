@@ -113,7 +113,7 @@ class DiceProcessManager:
             await MessageFactory(Text(config.reply_text.dice_defeat) + Mention(self.dice_buffer[0].user_id)).send()
             await asyncio.sleep(1)
             await self.__punish(self.dice_buffer[0].player)
-
+        del processing_dice_play[self.group_id]
         await MessageFactory(config.reply_text.dice_stopped).send()
 
     async def __punish(self, player: DGLabPlayClient):
