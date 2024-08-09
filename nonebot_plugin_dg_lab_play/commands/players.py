@@ -9,7 +9,7 @@ from nonebot_plugin_saa import MessageFactory, Image, Text, Mention
 
 from ..client_manager import client_manager
 from ..config import Config
-from ..utils import get_command_start_list
+from ..utils import get_command_start_list, is_onebot_group
 
 __all__ = ["dg_lab_device_join", "show_players", "exit_game"]
 
@@ -41,6 +41,8 @@ async def handle_dg_lab_device_join(event: Event):
     async with play_client.bind_finished_lock:
         pass
     if not play_client.is_destroyed:
+        if is_onebot_group(event):
+            play_client.set_group(event.group_id)
         await MessageFactory(
             config.reply_text.successfully_bind
         ).finish(at_sender=True)

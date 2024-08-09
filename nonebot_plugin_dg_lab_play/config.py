@@ -21,6 +21,7 @@ __all__ = [
     "CommandTextConfig",
     "ReplyTextConfig",
     "DGLabPlayConfig",
+    "DicePlayConfig",
     "Config"
 ]
 
@@ -152,6 +153,12 @@ class PulseDataConfig(BaseModel):
             return value
 
 
+class DicePlayConfig(BaseModel):
+    max_round: int = 10
+    timeout: int = 30
+    punish: int = 10.0
+
+
 class CommandTextConfig(BaseModel):
     """命令触发文本设置"""
     append_pulse: str = "增加波形"
@@ -167,6 +174,9 @@ class CommandTextConfig(BaseModel):
     show_players: str = "当前玩家"
     show_pulses: str = "可用波形"
     usage: str = "郊狼玩法"
+    start_dice: str = "开始骰子玩法"
+    stop_dice: str = "停止骰子玩法"
+    create_virtual_player: str = "创建虚拟玩家"
 
 
 class ReplyTextConfig(BaseModel):
@@ -196,6 +206,18 @@ class ReplyTextConfig(BaseModel):
     successfully_set_pulse: str = "郊狼波形成功设置为【{}】！"
     successfully_set_to_strength: str = "郊狼强度成功设置为 {}%！"
 
+    dice_not_support: str = "本功能不支持当前平台，请换用OneBot协议适配器"
+    dice_no_enough_players: str = "当前没有足够的玩家参与骰子玩法,至少需要两个玩家"
+    dice_ready_start: str = "骰子玩法即将开始，游戏顺序如下："
+    dice_already_started: str = "骰子玩法已经开始，不过现在仍可连接设备以加入游戏"
+    dice_stopped: str = "骰子玩法已结束"
+    dice_player_lost: str = "已失去连接"
+    dice_require: str = "轮到你了，请在{second}秒内投掷骰子，否则本轮将判定为负"
+    dice_round_start: str = "第({round}/{max_round})轮游戏开始"
+    dice_timeout: str = "投掷超时，本轮判定为负"
+    dice_defeat: str = "本轮结束，最低点数："
+    dice_new_player: str = "新玩家加入，新游戏顺序如下："
+
 
 class DebugConfig(BaseModel):
     """调试设置，使用 pydevd-pycharm 进行调试"""
@@ -215,6 +237,7 @@ class DGLabPlayConfig(BaseModel):
 
 class Config(BaseSettings):
     dg_lab_play: DGLabPlayConfig = DGLabPlayConfig()
+    dice_play: DicePlayConfig = DicePlayConfig()
 
 
 @driver.on_startup

@@ -31,6 +31,7 @@ class DGLabPlayClient:
 
     def __init__(self, user_id: str, destroy_callback: Callable[["Self"], Any], client: DGLabClient = None):
         self.user_id = user_id
+        self.group_id = None
         self.client: Optional[DGLabClient] = client
         self._destroy_callback = destroy_callback
         self.last_strength: Optional[StrengthData] = None
@@ -42,6 +43,13 @@ class DGLabPlayClient:
 
         self.register_finished_lock = asyncio.Lock()
         self.bind_finished_lock = asyncio.Lock()
+
+    def set_group(self, group_id):
+        self.group_id = group_id
+        if group_id in client_manager.group_id_to_group:
+            client_manager.group_id_to_group[group_id].append(self)
+        else:
+            client_manager.group_id_to_group[group_id] = [self]
 
     async def __aenter__(self) -> "Self":
         for lock in self.register_finished_lock, self.bind_finished_lock:
@@ -197,6 +205,7 @@ class DGLabPlayClient:
 class ClientManager:
     def __init__(self):
         self.user_id_to_client: Dict[str, DGLabPlayClient] = {}
+        self.group_id_to_group: Dict[int, List[DGLabPlayClient]] = {}
         self.ws_server: Optional[DGLabWSServer] = None
         self.ws_server_task: Optional[asyncio.Task] = None
 
@@ -230,7 +239,7 @@ class ClientManager:
             if self.ws_server:
                 async with DGLabPlayClient(
                         user_id,
-                        lambda x: self.user_id_to_client.pop(x.user_id),
+                        lambda x: self.on_client_destroyed(x),
                         self.ws_server.new_local_client()
                 ) as play_client:
                     pass
@@ -250,6 +259,16 @@ class ClientManager:
             self.user_id_to_client[user_id] = play_client
             logger.info(f"用户 {user_id} 创建了本地终端")
             return play_client
+
+    def on_client_destroyed(self, who: DGLabPlayClient):
+        # 当一个Client被销毁时调用
+        self.user_id_to_client.pop(who.user_id)
+        if who.group_id is not None:
+            # 销毁终端时同时从群中移除
+            self.group_id_to_group[who.group_id].remove(who)
+            if len(self.group_id_to_group[who.group_id]) == 0:
+                # 群内最后一个终端被销毁时同时销毁该群
+                del self.group_id_to_group[who.group_id]
 
 
 client_manager = ClientManager()
