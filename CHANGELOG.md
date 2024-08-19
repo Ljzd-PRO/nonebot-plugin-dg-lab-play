@@ -6,4 +6,4 @@
 
 [//]: # (### 🪲 修复)
 
-**Full Changelog**: https://github.com/Ljzd-PRO/PyDGLab-WS/compare/v1.1.0...v1.1.0-beta.1
+**Full Changelog**: https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play/compare/v1.0.0...v1.1.0-beta.1
