@@ -31,7 +31,7 @@ USAGE_TEXT = f"""\
 🎲重设为随机波形：{fist_command_start}{config.command_text.random_pulse} <At用户>
 
 🎲开始骰子玩法：{fist_command_start}{config.command_text.start_dice}
-🎲开始骰子玩法：{fist_command_start}{config.command_text.stop_dice}
+🚪停止骰子玩法：{fist_command_start}{config.command_text.stop_dice}
 注：骰子玩法至少需要两个玩家
 
 🔗项目链接：https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play
