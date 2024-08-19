@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-dg-lab-play"
-version = "1.0.0"
+version = "v1.1.0-beta.1"
 description = "nonebot2 机器人插件 - 在群里和大家一起玩郊狼吧！"
 authors = ["Ljzd-PRO <ljzd@office.ljzd-pro.asia>"]
 readme = "README.md"
