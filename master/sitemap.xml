@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/about/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/faq/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/command-text/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/dg-lab-client/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/guide/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/pulse-data/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/reply-text/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://dg-lab-play.readthedocs.io/master/config/ws-server/</loc>
-         <lastmod>2024-05-21</lastmod>
+         <lastmod>2024-08-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
