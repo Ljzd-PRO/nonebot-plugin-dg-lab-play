@@ -2,8 +2,8 @@
 
 ### 💡 新特性
 
-首次发布的版本。
+- 增加骰子玩法 @mis1042 (#31)
 
 [//]: # (### 🪲 修复)
 
-[//]: # (**Full Changelog**: https://github.com/Ljzd-PRO/PyDGLab-WS/compare/v1.0.2...v1.1.0)
+**Full Changelog**: https://github.com/Ljzd-PRO/PyDGLab-WS/compare/v1.1.0...v1.1.0-beta.1
