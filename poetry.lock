@@ -805,13 +805,13 @@ strenum = ">=0.4.8,<0.5.0"
 
 [[package]]
 name = "nonebot2"
-version = "2.3.1"
+version = "2.3.3"
 description = "An asynchronous python bot framework."
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "nonebot2-2.3.1-py3-none-any.whl", hash = "sha256:91ac0abebe6c403c2443b11a49e065b79e6199460bdd61a32148366b35f81c4d"},
-    {file = "nonebot2-2.3.1.tar.gz", hash = "sha256:ac5a1a1759f15310e9183b606ce6bdbe52a90287bf36a69201be548e23d41e6c"},
+    {file = "nonebot2-2.3.3-py3-none-any.whl", hash = "sha256:5bc8d073091347f29c4a1a2f927c24a8941e5d286c77139376259318b9bbfc68"},
+    {file = "nonebot2-2.3.3.tar.gz", hash = "sha256:4fa7707de5d708c27cc49493bc78a07fee2ba01f5516835a2ea5fbebb49b9dfa"},
 ]
 
 [package.dependencies]
