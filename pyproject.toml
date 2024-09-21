@@ -38,7 +38,7 @@ mike = "^2.1.1"
 flake8 = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
-pydevd-pycharm = "^232.10227.11"
+pydevd-pycharm = ">=232.10227.11,<243.0.0"
 
 [tool.poetry.group.docs]
 optional = true
