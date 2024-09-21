@@ -8,7 +8,7 @@ from ..client_manager import client_manager
 from ..utils import get_command_start_list
 
 config = get_plugin_config(Config).dg_lab_play
-__all__ = ["create_virtual_player"]
+__all__ = ["create_virtual_player", "VirtualPlayer"]
 
 
 class VirtualPlayer:
