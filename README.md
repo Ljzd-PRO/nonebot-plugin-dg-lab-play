@@ -38,7 +38,7 @@
 
 ### 预发行版本说明
 
-尚未进行充分测试，但其中有一些未发布的新功能，欢迎体验
+下列版本尚未进行充分测试，但其中有一些未发布的新功能，欢迎体验
 
 - [v1.1.0-beta.1](https://github.com/Ljzd-PRO/nonebot-plugin-dg-lab-play/releases/tag/v1.1.0-beta.1)
   新增骰子玩法
