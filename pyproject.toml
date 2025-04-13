@@ -31,7 +31,7 @@ qrcode = {extras = ["pil"], version = "^7.4.2"}
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.0"
 mkdocs-material = "^9.5.22"
-mkdocstrings = {version="^0.25.1", extras=["python"]}
+mkdocstrings = {version=">=0.25.1,<0.28.0", extras=["python"]}
 mike = "^2.1.1"
 
 [tool.poetry.group.test.dependencies]
