@@ -36,6 +36,12 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://ko-fi.com/N4N51J14RW" target="_blank">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi">
+  </a>
+</p>
+
 ### 预发行版本说明
 
 下列版本尚未进行充分测试，但其中有一些未发布的新功能，欢迎体验
